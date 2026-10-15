@@ -1,8 +1,3 @@
 {
-  "version": "1.29",
-  "sha256": "c510041c33638286bdf03055fe109f7147cf135d9875e5c423b30c88ff973580",
-  "file": "ProxySG_Policy_Trace_Editor.exe",
-  "launcherSHA256": "04625f33ceec3de5dc8a839e9d7ef78b2c57aa2b5483057b4f05feb8e0839b00",
-  "launcherVersion": "2.0.0",
-  "launcherSetup": "ProxySG_Trace_Launcher_Setup.exe"
+  "edgeConnectorVersion": "1.29"
 }
