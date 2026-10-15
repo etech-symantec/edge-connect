@@ -1,0 +1,1425 @@
+:root{--bg:#f4f7fb;--card:#fff;--line:#d9e3ee;--text:#18324d;--muted:#667b91;--blue:#2563eb;--blue2:#4f46e5;--green:#087a55;--amber:#a05b00;--red:#a92332}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--text)}
+.top{height:56px;display:flex;align-items:center;padding:0 24px;background:linear-gradient(90deg,#173f6b,#285d91);color:#fff;box-shadow:0 2px 10px rgba(15,23,42,.15)}
+.brand{font-size:17px;font-weight:900;letter-spacing:-.35px}.sub{margin-left:10px;font-size:10px;opacity:.7}
+.top .lang{margin-left:auto;display:flex;gap:2px;padding:3px;border-radius:9px;background:rgba(255,255,255,.12)}
+.lang button{border:0;background:transparent;color:#dceafe;padding:6px 9px;border-radius:7px;font-size:10px;font-weight:800;cursor:pointer}
+.lang button.active{background:#fff;color:#24568a}
+.page{max-width:1180px;margin:18px auto 42px;padding:0 20px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;border:1px solid #a9c4e5;border-radius:18px;background:linear-gradient(135deg,#eaf3ff,#fff 58%,#edf5ff);padding:22px;box-shadow:0 14px 34px rgba(34,76,124,.1)}
+.hero h1{margin:0;color:#173f6b;font-size:23px;letter-spacing:-.55px}.hero p{margin:8px 0 0;color:#587089;font-size:12px;line-height:1.7}
+.badge{display:inline-flex;align-items:center;gap:6px;border:1px solid #92d6bc;background:#edfcf6;color:#087a55;border-radius:999px;padding:7px 10px;font-size:10px;font-weight:850}
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:13px}
+.step{border:1px solid #d8e3ef;border-radius:11px;background:rgba(255,255,255,.75);padding:10px}.step b{display:block;color:#28547f;font-size:10.5px;margin-bottom:4px}.step span{color:#718196;font-size:9.5px;line-height:1.45}
+.card{margin-top:14px;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:20px;box-shadow:0 8px 22px rgba(15,23,42,.05)}
+.head{display:flex;align-items:flex-start;gap:12px}.title{font-size:18px;font-weight:900;color:#173f6b}.desc{font-size:11px;color:var(--muted);margin-top:4px}
+.status{margin-left:auto;display:flex;align-items:center;gap:6px;border:1px solid #cbd5e1;background:#f8fafc;color:#64748b;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900}
+.status.on{border-color:#8fd7bd;background:#ecfdf5;color:var(--green)}.status.pending{border-color:#f1b865;background:#fff7e6;color:#9a5a00}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:17px}
+.btn{border:0;border-radius:10px;padding:11px 15px;font-size:11px;font-weight:900;cursor:pointer;transition:.14s ease}
+.btn.primary{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;box-shadow:0 7px 16px rgba(37,99,235,.22)}
+.btn.version{border:1px solid #a9bfd8;background:#f7fbff;color:#31506f}.btn.delete{border:1px solid #ef9aa4;background:#fff1f2;color:var(--red)}
+.btn.warn{background:linear-gradient(135deg,#d97706,#ea580c);color:#fff}
+.note{margin-top:11px;color:#60748a;font-size:10.5px;line-height:1.55}
+.notice{display:none;margin-top:15px;border:2px solid #f59e0b;border-radius:14px;background:#fff8e8;padding:15px;color:#70420d}.notice.show{display:block}.notice.red{border-color:#e35d6a;background:#fff1f2;color:#7c2430}
+.notice h3{margin:0 0 6px;font-size:16px}.file{margin:9px 0;border:1px solid currentColor;border-radius:8px;background:rgba(255,255,255,.7);padding:8px 10px;font:800 11px Consolas,monospace}
+.notice ol{margin:8px 0 0;padding-left:21px;font-size:10.5px;line-height:1.7}
+.versionBox{display:none;margin-top:12px;padding:12px;border:1px solid #cdd9e7;border-radius:11px;background:#f8fbff;font-size:10.5px;line-height:1.6}.versionBox.show{display:block}.versionBox.ok{border-color:#9ddbc5;background:#f0fdf7;color:#17654d}.versionBox.warn{border-color:#efc171;background:#fff8e8;color:#84500b}.versionBox.error{border-color:#efb0b7;background:#fff2f3;color:#8f2632}
+@media(max-width:850px){.flow{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.page{padding:0 12px}}
+
+/* ===== v21 layout: 상세 기능 좌측 + 설치 카드 우측 ===== */
+.top{display:none !important}
+.page{max-width:1440px;margin:18px auto 42px;padding:0 20px}
+.main-grid{
+  display:grid;
+  grid-template-columns:minmax(0,2.15fr) minmax(330px,.85fr);
+  gap:16px;
+  align-items:start;
+}
+.card{margin-top:0}
+
+.info-card{
+  padding:22px;
+  border-color:#c9d8e9;
+  background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%);
+}
+.info-card-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+  padding-bottom:17px;
+  border-bottom:1px solid #e3eaf2;
+}
+.eyebrow{
+  color:#7890aa;
+  font-size:9px;
+  line-height:1;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.9px;
+  margin-bottom:7px;
+}
+.info-card h1{
+  margin:0;
+  color:#173f6b;
+  font-size:24px;
+  line-height:1.15;
+  letter-spacing:-.55px;
+}
+.lead{
+  margin:8px 0 0;
+  max-width:790px;
+  color:#5f7389;
+  font-size:11.5px;
+  line-height:1.7;
+}
+.info-card-tools{
+  flex:0 0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:8px;
+}
+.info-card-tools .lang{
+  display:flex;
+  gap:2px;
+  padding:3px;
+  border:1px solid #d5e0eb;
+  border-radius:9px;
+  background:#f7faff;
+}
+.info-card-tools .lang button{
+  border:0;
+  background:transparent;
+  color:#667b91;
+  padding:5px 8px;
+  border-radius:6px;
+  font-size:9.5px;
+  font-weight:850;
+  cursor:pointer;
+}
+.info-card-tools .lang button.active{
+  background:#fff;
+  color:#24568a;
+  box-shadow:0 1px 5px rgba(36,86,138,.10);
+}
+
+.workflow-title{
+  display:flex;
+  align-items:baseline;
+  gap:9px;
+  margin:18px 0 10px;
+  color:#234c76;
+  font-size:13px;
+  font-weight:900;
+}
+.workflow-title small{
+  color:#8495a8;
+  font-size:9.5px;
+  font-weight:600;
+}
+.workflow-list{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+.workflow-step{
+  display:grid;
+  grid-template-columns:34px minmax(0,1fr);
+  gap:11px;
+  padding:12px 13px;
+  border:1px solid #dde6ef;
+  border-radius:12px;
+  background:linear-gradient(180deg,#fbfdff,#f7faff);
+  transition:border-color .14s ease,box-shadow .14s ease,transform .14s ease;
+}
+.workflow-step:hover{
+  border-color:#b5cbe2;
+  box-shadow:0 5px 14px rgba(33,78,125,.06);
+  transform:translateY(-1px);
+}
+.step-no{
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:1px;
+  border-radius:9px;
+  background:linear-gradient(135deg,#2e6ca8,#4d87c1);
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  box-shadow:0 4px 9px rgba(45,105,165,.15);
+}
+.step-head{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.step-head h3{
+  margin:0;
+  color:#244b73;
+  font-size:12px;
+  line-height:1.25;
+}
+.step-tag{
+  margin-left:auto;
+  border:1px solid #d5e1ed;
+  background:#fff;
+  color:#6f8398;
+  border-radius:999px;
+  padding:2px 6px;
+  font-size:7.5px;
+  font-weight:900;
+  letter-spacing:.25px;
+}
+.step-body p{
+  margin:5px 0 7px;
+  color:#64788d;
+  font-size:10px;
+  line-height:1.6;
+}
+.step-points{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+}
+.step-points span{
+  border:1px solid #dfe7f0;
+  border-radius:7px;
+  background:#fff;
+  color:#5a7189;
+  padding:3px 6px;
+  font-size:8.2px;
+  font-weight:750;
+}
+.security-note{
+  margin-top:12px;
+  display:flex;
+  gap:9px;
+  align-items:flex-start;
+  padding:10px 12px;
+  border-left:3px solid #5b8fd8;
+  border-radius:8px;
+  background:#f2f7fc;
+  color:#5c7289;
+  font-size:9.5px;
+  line-height:1.55;
+}
+.security-note b{
+  flex:0 0 auto;
+  color:#285784;
+}
+
+.install-card{
+  position:sticky;
+  top:18px;
+  padding:20px;
+  border-color:#bfd0e3;
+  background:linear-gradient(180deg,#ffffff,#f9fbfe);
+}
+.install-head{
+  align-items:flex-start;
+  padding-bottom:14px;
+  border-bottom:1px solid #e5ebf2;
+}
+.install-head .title{
+  font-size:16px;
+}
+.install-summary{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+  padding:11px;
+  border:1px solid #d9e4ef;
+  border-radius:11px;
+  background:#f6f9fd;
+}
+.summary-icon{
+  width:28px;height:28px;flex:0 0 28px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:9px;
+  background:#e7f1ff;
+  color:#2f68a5;
+  font-weight:900;
+}
+.install-summary b{
+  display:block;
+  color:#315879;
+  font-size:10px;
+  margin-bottom:3px;
+}
+.install-summary span{
+  display:block;
+  color:#718399;
+  font-size:9px;
+  line-height:1.45;
+}
+.install-card .actions{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:7px;
+}
+.install-card .btn{
+  width:100%;
+  margin:0;
+}
+.install-card .note{
+  padding:9px 10px;
+  border-radius:9px;
+  background:#f7f9fc;
+}
+.install-card .versionBox{
+  margin-top:9px;
+}
+.install-card .notice{
+  padding:12px;
+}
+.install-card .notice h3{
+  font-size:13px;
+}
+.install-card .file{
+  font-size:9px;
+  overflow-wrap:anywhere;
+}
+.install-foot{
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid #e5ebf2;
+  display:grid;
+  gap:8px;
+}
+.install-foot div{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.install-foot b{
+  color:#72859a;
+  font-size:8.5px;
+}
+.install-foot code{
+  display:block;
+  padding:6px 8px;
+  border:1px solid #e0e7ef;
+  border-radius:7px;
+  background:#f8fafc;
+  color:#46627f;
+  font-size:8.5px;
+  overflow-wrap:anywhere;
+}
+
+@media(max-width:1050px){
+  .main-grid{grid-template-columns:1fr}
+  .install-card{position:static}
+}
+@media(max-width:720px){
+  .page{padding:0 12px;margin-top:12px}
+  .info-card-head{flex-direction:column}
+  .info-card-tools{width:100%;flex-direction:row;justify-content:space-between;align-items:center}
+  .step-head{align-items:flex-start}
+  .step-tag{display:none}
+  .workflow-step{grid-template-columns:30px minmax(0,1fr)}
+}
+
+
+/* ===== v21.1: status badge / branch workflow / readability ===== */
+.install-head{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) auto !important;
+  align-items:start !important;
+  gap:12px !important;
+}
+.status{
+  margin-left:0 !important;
+  flex:0 0 auto !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:5px !important;
+  width:auto !important;
+  min-width:max-content !important;
+  max-width:none !important;
+  white-space:nowrap !important;
+  word-break:keep-all !important;
+  overflow-wrap:normal !important;
+  line-height:1 !important;
+  padding:7px 10px !important;
+  font-size:10.5px !important;
+}
+.status::first-letter{white-space:nowrap}
+
+/* Slightly larger typography throughout */
+.info-card h1{font-size:26px !important}
+.lead{font-size:12.5px !important;line-height:1.72 !important}
+.workflow-title{font-size:14px !important}
+.workflow-title small{font-size:10.5px !important}
+.step-head h3{font-size:13px !important}
+.step-body p{font-size:10.8px !important;line-height:1.65 !important}
+.step-points span{font-size:8.8px !important}
+.security-note{font-size:10.3px !important}
+.install-head .title{font-size:17px !important}
+.desc{font-size:11.5px !important;line-height:1.55}
+.install-summary b{font-size:10.8px !important}
+.install-summary span{font-size:9.7px !important}
+.btn{font-size:11.5px !important}
+.note{font-size:11px !important}
+.install-foot b{font-size:9px !important}
+.install-foot code{font-size:9px !important}
+
+/* Branch workflow visual */
+.branch-flow{
+  margin:18px 0 12px;
+  padding:14px;
+  border:1px solid #d7e3ef;
+  border-radius:13px;
+  background:linear-gradient(180deg,#f8fbff,#f3f8fd);
+}
+.branch-title{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  margin-bottom:12px;
+  color:#244f79;
+  font-size:12px;
+  font-weight:900;
+}
+.branch-title small{
+  color:#8293a6;
+  font-size:9.5px;
+  font-weight:650;
+}
+.branch-start{
+  display:flex;
+  justify-content:center;
+}
+.branch-node{
+  position:relative;
+  min-width:160px;
+  padding:9px 12px;
+  border:1px solid #cddbea;
+  border-radius:10px;
+  background:#fff;
+  text-align:center;
+  color:#315878;
+  box-shadow:0 3px 10px rgba(34,76,124,.04);
+}
+.branch-node b{
+  display:block;
+  font-size:10.8px;
+  margin-bottom:2px;
+}
+.branch-node span{
+  display:block;
+  color:#75879a;
+  font-size:8.8px;
+  line-height:1.35;
+}
+.branch-split{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+  margin-top:30px;
+}
+.branch-split::before{
+  content:"";
+  position:absolute;
+  top:-18px;
+  left:25%;
+  right:25%;
+  height:1px;
+  background:#9db6d0;
+}
+.branch-split::after{
+  content:"";
+  position:absolute;
+  top:-30px;
+  left:50%;
+  width:1px;
+  height:12px;
+  background:#9db6d0;
+}
+.branch-path{
+  position:relative;
+  padding-top:0;
+}
+.branch-path::before{
+  content:"";
+  position:absolute;
+  top:-18px;
+  left:50%;
+  width:1px;
+  height:18px;
+  background:#9db6d0;
+}
+.branch-path.local-admin .branch-node{
+  border-color:#b8d8c6;
+  background:linear-gradient(180deg,#fbfffd,#f0fbf5);
+}
+.branch-path.local-admin .branch-node b{color:#24724e}
+.branch-path.trace .branch-node{
+  border-color:#b9cfe8;
+  background:linear-gradient(180deg,#fbfdff,#eef5fd);
+}
+.branch-path.trace .branch-node b{color:#2d5f91}
+.branch-downstream{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:22px;
+}
+.branch-downstream::before{
+  content:"";
+  position:absolute;
+  top:-22px;
+  left:50%;
+  width:1px;
+  height:22px;
+  background:#9db6d0;
+}
+.branch-arrow{
+  display:flex;
+  align-items:center;
+  color:#7f94a9;
+  font-size:15px;
+  font-weight:900;
+}
+.branch-mini{
+  min-width:140px;
+  padding:8px 10px;
+  border:1px solid #d5e0ec;
+  border-radius:9px;
+  background:#fff;
+  text-align:center;
+}
+.branch-mini b{
+  display:block;
+  color:#365d82;
+  font-size:9.8px;
+}
+.branch-mini span{
+  display:block;
+  margin-top:2px;
+  color:#7d8fa2;
+  font-size:8.4px;
+}
+
+@media(max-width:620px){
+  .install-head{
+    grid-template-columns:1fr !important;
+  }
+  .status{
+    justify-self:start;
+  }
+  .branch-split{
+    grid-template-columns:1fr;
+    gap:28px;
+  }
+  .branch-split::before,
+  .branch-split::after{
+    display:none;
+  }
+  .branch-path::before{
+    left:18px;
+  }
+  .branch-downstream{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .branch-arrow{
+    justify-content:center;
+    transform:rotate(90deg);
+  }
+}
+
+
+/* ===== v21.2: full-width title banner + workflow cards as tree ===== */
+.info-card-head{
+  display:block !important;
+  padding-bottom:17px !important;
+}
+.info-card-head .eyebrow{
+  margin-bottom:7px !important;
+}
+.title-banner{
+  width:100%;
+  min-height:54px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:10px 12px 10px 18px;
+  border-radius:9px;
+  background:linear-gradient(90deg,#213f65 0%,#234a73 60%,#2a5a89 100%);
+  box-shadow:0 5px 14px rgba(27,61,98,.12);
+}
+.title-banner h1{
+  margin:0 !important;
+  color:#fff !important;
+  font-size:26px !important;
+  line-height:1 !important;
+  letter-spacing:-.55px !important;
+}
+.title-lang{
+  margin-left:auto;
+  flex:0 0 auto;
+  display:flex;
+  gap:2px;
+  padding:3px;
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:9px;
+  background:rgba(255,255,255,.10);
+}
+.title-lang button{
+  border:0;
+  background:transparent;
+  color:#dceafe;
+  padding:5px 8px;
+  border-radius:6px;
+  font-size:9.5px;
+  font-weight:850;
+  cursor:pointer;
+}
+.title-lang button:hover{
+  background:rgba(255,255,255,.12);
+}
+.title-lang button.active{
+  background:#fff;
+  color:#24568a;
+  box-shadow:0 1px 5px rgba(15,23,42,.12);
+}
+.info-card-head .lead{
+  margin-top:10px !important;
+}
+.info-card-tools,
+.info-card-tools .badge,
+.badge{
+  display:none !important;
+}
+
+/* Remove the separate flow diagram from previous version */
+.branch-flow,
+.branch-title,
+.branch-start,
+.branch-split,
+.branch-path,
+.branch-downstream,
+.branch-mini,
+.branch-arrow{
+  display:none !important;
+}
+
+/* Detailed cards themselves form the tree */
+.workflow-tree{
+  position:relative;
+  margin-top:4px;
+}
+.workflow-step{
+  position:relative;
+}
+.tree-root{
+  width:calc(50% - 11px);
+  margin:0 auto 38px;
+}
+.tree-root::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-39px;
+  width:1px;
+  height:39px;
+  background:#9eb5cd;
+}
+.tree-split{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+  align-items:start;
+}
+.tree-split::before{
+  content:"";
+  position:absolute;
+  top:-20px;
+  left:25%;
+  right:25%;
+  height:1px;
+  background:#9eb5cd;
+}
+.tree-column{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+.tree-column::before{
+  content:"";
+  position:absolute;
+  top:-20px;
+  left:50%;
+  width:1px;
+  height:20px;
+  background:#9eb5cd;
+}
+.tree-node{
+  margin:0 !important;
+}
+.local-admin-node{
+  border-color:#bddac9 !important;
+  background:linear-gradient(180deg,#fcfffd,#f3fbf6) !important;
+}
+.local-admin-node .step-no{
+  background:linear-gradient(135deg,#2d8b60,#43a876) !important;
+}
+.local-admin-node .step-head h3{
+  color:#28724f !important;
+}
+.trace-node{
+  border-color:#b8cfe8 !important;
+  background:linear-gradient(180deg,#fbfdff,#f0f6fd) !important;
+}
+.trace-column .downstream-node{
+  position:relative;
+}
+.trace-column .downstream-node::before{
+  content:"";
+  position:absolute;
+  top:-25px;
+  left:50%;
+  width:1px;
+  height:25px;
+  background:#9eb5cd;
+}
+.trace-column .downstream-node::after{
+  content:"▼";
+  position:absolute;
+  top:-17px;
+  left:calc(50% - 5px);
+  color:#849bb2;
+  background:#f7fbff;
+  font-size:8px;
+  line-height:1;
+  padding:1px 2px;
+}
+
+.workflow-title small{
+  max-width:640px;
+}
+
+@media(max-width:850px){
+  .title-banner{
+    padding:9px 10px 9px 14px;
+  }
+  .title-banner h1{
+    font-size:22px !important;
+  }
+  .tree-root{
+    width:100%;
+    margin-bottom:24px;
+  }
+  .tree-root::after,
+  .tree-split::before,
+  .tree-column::before,
+  .trace-column .downstream-node::before,
+  .trace-column .downstream-node::after{
+    display:none;
+  }
+  .tree-split{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+  .tree-column{
+    gap:12px;
+  }
+}
+@media(max-width:560px){
+  .title-banner{
+    flex-wrap:wrap;
+  }
+  .title-lang{
+    margin-left:0;
+  }
+}
+
+
+/* ===== v21.3: Windows Explorer-style left hierarchy ===== */
+.workflow-tree.explorer-tree{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:4px;
+}
+
+.explorer-node{
+  position:relative;
+  display:grid !important;
+  grid-template-columns:28px 34px minmax(0,1fr) !important;
+  gap:8px !important;
+  width:auto !important;
+  margin:0 !important;
+  transition:transform .12s ease,border-color .12s ease,box-shadow .12s ease;
+}
+
+.explorer-node.depth-0{margin-left:0 !important}
+.explorer-node.depth-1{margin-left:34px !important}
+.explorer-node.depth-2{margin-left:68px !important}
+.explorer-node.depth-3{margin-left:102px !important}
+
+.tree-glyph{
+  align-self:start;
+  padding-top:4px;
+  color:#8ca0b5;
+  font-family:Consolas,"Courier New",monospace;
+  font-size:12px;
+  line-height:1;
+  font-weight:700;
+  white-space:nowrap;
+  user-select:none;
+}
+
+/* vertical guide line for nested depths */
+.explorer-node.depth-1::before,
+.explorer-node.depth-2::before,
+.explorer-node.depth-3::before{
+  content:"";
+  position:absolute;
+  top:-9px;
+  bottom:-9px;
+  width:1px;
+  background:#d3deea;
+  z-index:0;
+}
+.explorer-node.depth-1::before{left:-18px}
+.explorer-node.depth-2::before{left:-18px}
+.explorer-node.depth-3::before{left:-18px}
+
+/* subtle horizontal connector from guide line to node */
+.explorer-node.depth-1::after,
+.explorer-node.depth-2::after,
+.explorer-node.depth-3::after{
+  content:"";
+  position:absolute;
+  top:18px;
+  left:-18px;
+  width:18px;
+  height:1px;
+  background:#d3deea;
+}
+
+/* root styled as parent/folder */
+.explorer-node.depth-0{
+  border-color:#bfd2e6 !important;
+  background:linear-gradient(180deg,#fafdff,#f3f8fd) !important;
+}
+.explorer-node.depth-0 .step-no{
+  background:linear-gradient(135deg,#2c639d,#447eb9) !important;
+}
+
+/* branch styles */
+.local-admin-node{
+  border-color:#c6ddcf !important;
+  background:linear-gradient(180deg,#fcfffd,#f5fbf7) !important;
+}
+.local-admin-node .step-no{
+  background:linear-gradient(135deg,#338761,#4aa377) !important;
+}
+.local-admin-node .step-head h3{color:#2c7152 !important}
+
+.trace-node{
+  border-color:#c4d6e9 !important;
+  background:linear-gradient(180deg,#fbfdff,#f3f7fc) !important;
+}
+.trace-node .step-no{
+  background:linear-gradient(135deg,#34689f,#5085ba) !important;
+}
+
+.downstream-node{
+  border-color:#d5e0ea !important;
+  background:linear-gradient(180deg,#ffffff,#f8fafc) !important;
+}
+
+/* remove all previous centered/tree connector behavior */
+.tree-root,
+.tree-split,
+.tree-column{
+  display:contents !important;
+}
+.tree-root::after,
+.tree-split::before,
+.tree-column::before,
+.trace-column .downstream-node::before,
+.trace-column .downstream-node::after{
+  display:none !important;
+  content:none !important;
+}
+
+/* keep content visually aligned like Explorer details */
+.explorer-node .step-no{
+  width:30px !important;
+  height:30px !important;
+  margin-top:0 !important;
+  border-radius:8px !important;
+  font-size:10px !important;
+}
+.explorer-node .step-body{
+  min-width:0;
+}
+.explorer-node .step-head{
+  min-height:30px;
+  align-items:center !important;
+}
+.explorer-node .step-head h3{
+  font-size:13px !important;
+}
+.explorer-node .step-body p{
+  margin-top:3px !important;
+}
+
+/* slight row hover, Explorer-like */
+.explorer-node:hover{
+  transform:none !important;
+  border-color:#aebfd1 !important;
+  box-shadow:0 3px 10px rgba(44,77,111,.055) !important;
+}
+
+@media(max-width:760px){
+  .explorer-node.depth-1{margin-left:18px !important}
+  .explorer-node.depth-2{margin-left:36px !important}
+  .explorer-node.depth-3{margin-left:54px !important}
+  .explorer-node{
+    grid-template-columns:22px 30px minmax(0,1fr) !important;
+    gap:6px !important;
+  }
+  .explorer-node.depth-1::before,
+  .explorer-node.depth-2::before,
+  .explorer-node.depth-3::before{
+    left:-10px;
+  }
+  .explorer-node.depth-1::after,
+  .explorer-node.depth-2::after,
+  .explorer-node.depth-3::after{
+    left:-10px;
+    width:10px;
+  }
+}
+
+@media(max-width:520px){
+  .tree-glyph{display:none}
+  .explorer-node{
+    grid-template-columns:30px minmax(0,1fr) !important;
+  }
+  .explorer-node.depth-1{margin-left:12px !important}
+  .explorer-node.depth-2{margin-left:24px !important}
+  .explorer-node.depth-3{margin-left:36px !important}
+}
+
+
+/* ===== v21.4: clean Explorer rails, no glyph before number ===== */
+
+/* Neutralize every previous tree connector/glyph rule */
+.tree-glyph{display:none !important}
+.explorer-node::before,
+.explorer-node::after,
+.tree-root::after,
+.tree-split::before,
+.tree-column::before,
+.trace-column .downstream-node::before,
+.trace-column .downstream-node::after{
+  display:none !important;
+  content:none !important;
+}
+
+/* Cards use number + content only */
+.workflow-tree.explorer-tree{
+  --tree-line:#c5d4e3;
+  --tree-line-strong:#aebfd1;
+  --tree-indent:34px;
+  --tree-elbow:20px;
+  display:flex !important;
+  flex-direction:column !important;
+  gap:0 !important;
+  margin-top:5px !important;
+  position:relative;
+}
+.workflow-tree .explorer-node{
+  position:relative !important;
+  display:grid !important;
+  grid-template-columns:34px minmax(0,1fr) !important;
+  gap:9px !important;
+  width:auto !important;
+  margin:0 !important;
+}
+
+/* Every child group creates one continuous vertical rail */
+.tree-children{
+  position:relative;
+  margin-left:var(--tree-indent);
+  padding-left:var(--tree-indent);
+  padding-top:10px;
+}
+.tree-children::before{
+  content:"" !important;
+  display:block !important;
+  position:absolute;
+  left:12px;
+  top:0;
+  bottom:18px;
+  width:1px;
+  background:linear-gradient(
+    180deg,
+    var(--tree-line-strong) 0%,
+    var(--tree-line) 18%,
+    var(--tree-line) 82%,
+    rgba(197,212,227,.55) 100%
+  );
+}
+
+/* Branch wrappers keep their descendants attached to the same rail */
+.tree-branch{
+  position:relative;
+}
+.tree-children > .tree-child,
+.tree-children > .tree-branch > .tree-child{
+  position:relative;
+  margin-bottom:10px !important;
+}
+
+/* Smooth elbow from rail into each card */
+.tree-children > .tree-child::before,
+.tree-children > .tree-branch > .tree-child::before{
+  content:"" !important;
+  display:block !important;
+  position:absolute;
+  left:calc(-1 * var(--tree-indent) + 12px);
+  top:23px;
+  width:calc(var(--tree-indent) - 12px);
+  height:14px;
+  border-left:1px solid var(--tree-line);
+  border-bottom:1px solid var(--tree-line);
+  border-bottom-left-radius:9px;
+  pointer-events:none;
+}
+
+/* For branch cards, the descendant rail starts visually from the card */
+.tree-branch > .tree-children{
+  margin-top:0;
+}
+
+/* Last leaf: stop its own rail at the elbow so there is no dangling line */
+.tree-children.single-child::before{
+  bottom:auto;
+  height:24px;
+}
+
+/* 2A + 2B sibling rail should continue through both cards */
+.level-1::before{
+  bottom:calc(100% - 177px);
+  min-height:118px;
+}
+
+/* Nested single child groups use a compact connector */
+.level-2,
+.level-3{
+  padding-top:10px;
+}
+.level-2::before,
+.level-3::before{
+  height:24px;
+  bottom:auto;
+}
+
+/* More breathing room between generations */
+.level-1 > .tree-child,
+.level-1 > .tree-branch > .tree-child{
+  margin-bottom:12px !important;
+}
+.level-2 > .tree-branch > .tree-child,
+.level-3 > .tree-child{
+  margin-bottom:10px !important;
+}
+
+/* Root stays flush-left; descendants step inward one level at a time */
+.tree-root-node{
+  margin-left:0 !important;
+  margin-bottom:0 !important;
+}
+.level-1{margin-left:0 !important}
+.level-2{margin-left:0 !important}
+.level-3{margin-left:0 !important}
+
+/* Preserve the card hierarchy through nested group indentation */
+.level-1{padding-left:34px !important}
+.level-1 .level-2{margin-left:34px !important;padding-left:34px !important}
+.level-1 .level-2 .level-3{margin-left:34px !important;padding-left:34px !important}
+
+/* Give the rails a small junction dot where a branch starts */
+.level-1::after,
+.level-2::after,
+.level-3::after{
+  content:"" !important;
+  display:block !important;
+  position:absolute;
+  left:9px;
+  top:20px;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  border:1px solid #aec0d2;
+  background:#fff;
+  box-shadow:0 0 0 2px rgba(244,247,251,.9);
+}
+
+/* No connector symbol/text before number boxes */
+.workflow-tree .step-no{
+  margin-left:0 !important;
+  position:relative;
+  z-index:2;
+}
+
+/* Responsive indentation */
+@media(max-width:760px){
+  .workflow-tree.explorer-tree{
+    --tree-indent:24px;
+  }
+  .tree-children{
+    padding-left:24px !important;
+  }
+  .level-1 .level-2,
+  .level-1 .level-2 .level-3{
+    margin-left:24px !important;
+    padding-left:24px !important;
+  }
+  .tree-children > .tree-child::before,
+  .tree-children > .tree-branch > .tree-child::before{
+    left:calc(-1 * var(--tree-indent) + 9px);
+    width:calc(var(--tree-indent) - 9px);
+  }
+  .tree-children::before{
+    left:9px;
+  }
+  .level-1::after,
+  .level-2::after,
+  .level-3::after{
+    left:6px;
+  }
+}
+
+
+/* ===== v21.5: trace branch red theme + perfectly aligned tree rails ===== */
+
+/* 2B / 3 / 4 : red family */
+.trace-node,
+.trace-column .downstream-node,
+.trace-branch .downstream-node{
+  border-color:#e7c5ca !important;
+  background:linear-gradient(180deg,#fffdfd 0%,#fff5f6 100%) !important;
+}
+
+.trace-node .step-no,
+.trace-branch .downstream-node .step-no{
+  background:linear-gradient(135deg,#b94a57,#d46672) !important;
+  box-shadow:0 4px 9px rgba(185,74,87,.16) !important;
+}
+
+.trace-node .step-head h3,
+.trace-branch .downstream-node .step-head h3{
+  color:#9f3442 !important;
+}
+
+.trace-node .step-tag,
+.trace-branch .downstream-node .step-tag{
+  border-color:#ead0d4 !important;
+  background:#fff9fa !important;
+  color:#a95a64 !important;
+}
+
+.trace-node .step-points span,
+.trace-branch .downstream-node .step-points span{
+  border-color:#ecd9dc !important;
+  background:#fffafa !important;
+  color:#8f5960 !important;
+}
+
+/* ---------------------------------------------------------
+   Clean rail geometry
+   - no circles / no textual connector markers
+   - one vertical x-axis
+   - horizontal branches meet that axis exactly
+   --------------------------------------------------------- */
+.workflow-tree.explorer-tree{
+  --tree-indent:34px;
+  --rail-x:12px;
+  --rail:#c6d4e2;
+  --trace-rail:#dfb8be;
+}
+
+/* remove every old dot / elbow / glyph */
+.tree-glyph,
+.level-1::after,
+.level-2::after,
+.level-3::after,
+.tree-children::after,
+.explorer-node::after{
+  display:none !important;
+  content:none !important;
+}
+
+/* child container */
+.tree-children{
+  position:relative !important;
+  margin-left:0 !important;
+  padding-left:var(--tree-indent) !important;
+  padding-top:10px !important;
+}
+
+/* one straight vertical rail */
+.tree-children::before{
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  left:var(--rail-x) !important;
+  top:0 !important;
+  bottom:18px !important;
+  width:1px !important;
+  height:auto !important;
+  background:var(--rail) !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+
+/* straight horizontal connector from rail to card */
+.tree-children > .tree-child::before,
+.tree-children > .tree-branch > .tree-child::before{
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  left:calc(-1 * var(--tree-indent) + var(--rail-x)) !important;
+  top:25px !important;
+  width:calc(var(--tree-indent) - var(--rail-x)) !important;
+  height:1px !important;
+  background:var(--rail) !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+
+/* single-child generations stop exactly at the connector center */
+.tree-children.single-child::before,
+.level-2::before,
+.level-3::before{
+  top:0 !important;
+  bottom:auto !important;
+  height:25px !important;
+}
+
+/* level 1 needs to connect 2A and 2B cleanly */
+.level-1::before{
+  top:0 !important;
+  bottom:25px !important;
+  height:auto !important;
+}
+
+/* Trace path connectors (2B -> 3 -> 4) use a subtle red tint */
+.trace-branch > .tree-children::before,
+.live-branch > .tree-children::before{
+  background:var(--trace-rail) !important;
+}
+.trace-branch > .tree-children > .tree-branch > .tree-child::before,
+.trace-branch > .tree-children > .tree-child::before,
+.live-branch > .tree-children > .tree-child::before{
+  background:var(--trace-rail) !important;
+}
+
+/* nested depths: one consistent indent per generation */
+.level-1{
+  padding-left:var(--tree-indent) !important;
+}
+.level-1 .level-2{
+  margin-left:var(--tree-indent) !important;
+  padding-left:var(--tree-indent) !important;
+}
+.level-1 .level-2 .level-3{
+  margin-left:var(--tree-indent) !important;
+  padding-left:var(--tree-indent) !important;
+}
+
+/* keep rail intersection crisp at card edge */
+.tree-children > .tree-child,
+.tree-children > .tree-branch > .tree-child{
+  position:relative !important;
+  z-index:1;
+}
+
+/* responsive */
+@media(max-width:760px){
+  .workflow-tree.explorer-tree{
+    --tree-indent:24px;
+    --rail-x:9px;
+  }
+  .tree-children{
+    padding-left:var(--tree-indent) !important;
+  }
+  .level-1 .level-2,
+  .level-1 .level-2 .level-3{
+    margin-left:var(--tree-indent) !important;
+    padding-left:var(--tree-indent) !important;
+  }
+}
+
+
+/* ===== v21.6: rounded, measured tree connectors ===== */
+
+/* Remove all legacy pseudo-element rails. SVG draws every line now. */
+.tree-glyph,
+.tree-children::before,
+.tree-children::after,
+.tree-children > .tree-child::before,
+.tree-children > .tree-child::after,
+.tree-children > .tree-branch > .tree-child::before,
+.tree-children > .tree-branch > .tree-child::after,
+.explorer-node::before,
+.explorer-node::after,
+.level-1::before,
+.level-1::after,
+.level-2::before,
+.level-2::after,
+.level-3::before,
+.level-3::after,
+.tree-root::after,
+.tree-split::before,
+.tree-column::before,
+.trace-column .downstream-node::before,
+.trace-column .downstream-node::after{
+  display:none !important;
+  content:none !important;
+}
+
+/* Keep the Explorer-style depth, but leave a clean gutter for connectors. */
+.workflow-tree.explorer-tree{
+  position:relative !important;
+  isolation:isolate;
+  --depth:34px;
+  --connector-neutral:#bfd0e1;
+  --connector-trace:#dfb6bc;
+}
+
+.workflow-tree-svg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:visible;
+  pointer-events:none;
+  z-index:0;
+}
+
+.workflow-tree-svg path{
+  fill:none;
+  stroke-width:1.15;
+  vector-effect:non-scaling-stroke;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.workflow-tree-svg .tree-link-neutral{
+  stroke:var(--connector-neutral);
+}
+
+.workflow-tree-svg .tree-link-trace{
+  stroke:var(--connector-trace);
+}
+
+/* Cards always sit above the connector layer. */
+.workflow-tree .workflow-step{
+  position:relative !important;
+  z-index:2 !important;
+}
+
+/* Normalize nested offsets. */
+.tree-children{
+  position:relative !important;
+  margin-left:0 !important;
+  padding-top:10px !important;
+  padding-left:var(--depth) !important;
+}
+
+.level-1{
+  margin-left:0 !important;
+  padding-left:var(--depth) !important;
+}
+
+.level-1 .level-2{
+  margin-left:var(--depth) !important;
+  padding-left:var(--depth) !important;
+}
+
+.level-1 .level-2 .level-3{
+  margin-left:var(--depth) !important;
+  padding-left:var(--depth) !important;
+}
+
+/* Remove accidental horizontal offsets inherited from older versions. */
+.tree-children > .tree-child,
+.tree-children > .tree-branch,
+.tree-children > .tree-branch > .tree-child{
+  position:relative !important;
+}
+
+/* Red branch keeps its visual identity. */
+.trace-node,
+.trace-branch .downstream-node{
+  border-color:#e7c5ca !important;
+  background:linear-gradient(180deg,#fffdfd 0%,#fff5f6 100%) !important;
+}
+.trace-node .step-no,
+.trace-branch .downstream-node .step-no{
+  background:linear-gradient(135deg,#b94a57,#d46672) !important;
+  box-shadow:0 4px 9px rgba(185,74,87,.16) !important;
+}
+.trace-node .step-head h3,
+.trace-branch .downstream-node .step-head h3{
+  color:#9f3442 !important;
+}
+.trace-node .step-tag,
+.trace-branch .downstream-node .step-tag{
+  border-color:#ead0d4 !important;
+  background:#fff9fa !important;
+  color:#a95a64 !important;
+}
+.trace-node .step-points span,
+.trace-branch .downstream-node .step-points span{
+  border-color:#ecd9dc !important;
+  background:#fffafa !important;
+  color:#8f5960 !important;
+}
+
+/* Mobile keeps the same geometry with a smaller depth. */
+@media(max-width:760px){
+  .workflow-tree.explorer-tree{--depth:24px}
+  .tree-children,
+  .level-1{
+    padding-left:var(--depth) !important;
+  }
+  .level-1 .level-2,
+  .level-1 .level-2 .level-3{
+    margin-left:var(--depth) !important;
+    padding-left:var(--depth) !important;
+  }
+}
+
+
+/* ===== v21.7: Edge Connector title background removed ===== */
+.title-banner h1{
+  background:transparent !important;
+  background-color:transparent !important;
+  box-shadow:none !important;
+  border:0 !important;
+  border-radius:0 !important;
+  padding:0 !important;
+}

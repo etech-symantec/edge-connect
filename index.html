@@ -10,335 +10,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>ProxySG Edge Connector</title>
-<style>
-:root{--bg:#f4f7fb;--card:#fff;--line:#d9e3ee;--text:#18324d;--muted:#667b91;--blue:#2563eb;--blue2:#4f46e5;--green:#087a55;--amber:#a05b00;--red:#a92332}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg);font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--text)}
-.top{height:56px;display:flex;align-items:center;padding:0 24px;background:linear-gradient(90deg,#173f6b,#285d91);color:#fff;box-shadow:0 2px 10px rgba(15,23,42,.15)}
-.brand{font-size:17px;font-weight:900;letter-spacing:-.35px}.sub{margin-left:10px;font-size:10px;opacity:.7}
-.top .lang{margin-left:auto;display:flex;gap:2px;padding:3px;border-radius:9px;background:rgba(255,255,255,.12)}
-.lang button{border:0;background:transparent;color:#dceafe;padding:6px 9px;border-radius:7px;font-size:10px;font-weight:800;cursor:pointer}
-.lang button.active{background:#fff;color:#24568a}
-.page{max-width:1180px;margin:18px auto 42px;padding:0 20px}
-.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;border:1px solid #a9c4e5;border-radius:18px;background:linear-gradient(135deg,#eaf3ff,#fff 58%,#edf5ff);padding:22px;box-shadow:0 14px 34px rgba(34,76,124,.1)}
-.hero h1{margin:0;color:#173f6b;font-size:23px;letter-spacing:-.55px}.hero p{margin:8px 0 0;color:#587089;font-size:12px;line-height:1.7}
-.badge{display:inline-flex;align-items:center;gap:6px;border:1px solid #92d6bc;background:#edfcf6;color:#087a55;border-radius:999px;padding:7px 10px;font-size:10px;font-weight:850}
-.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:13px}
-.step{border:1px solid #d8e3ef;border-radius:11px;background:rgba(255,255,255,.75);padding:10px}.step b{display:block;color:#28547f;font-size:10.5px;margin-bottom:4px}.step span{color:#718196;font-size:9.5px;line-height:1.45}
-.card{margin-top:14px;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:20px;box-shadow:0 8px 22px rgba(15,23,42,.05)}
-.head{display:flex;align-items:flex-start;gap:12px}.title{font-size:18px;font-weight:900;color:#173f6b}.desc{font-size:11px;color:var(--muted);margin-top:4px}
-.status{margin-left:auto;display:flex;align-items:center;gap:6px;border:1px solid #cbd5e1;background:#f8fafc;color:#64748b;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900}
-.status.on{border-color:#8fd7bd;background:#ecfdf5;color:var(--green)}.status.pending{border-color:#f1b865;background:#fff7e6;color:#9a5a00}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:17px}
-.btn{border:0;border-radius:10px;padding:11px 15px;font-size:11px;font-weight:900;cursor:pointer;transition:.14s ease}
-.btn.primary{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;box-shadow:0 7px 16px rgba(37,99,235,.22)}
-.btn.version{border:1px solid #a9bfd8;background:#f7fbff;color:#31506f}.btn.delete{border:1px solid #ef9aa4;background:#fff1f2;color:var(--red)}
-.btn.warn{background:linear-gradient(135deg,#d97706,#ea580c);color:#fff}
-.note{margin-top:11px;color:#60748a;font-size:10.5px;line-height:1.55}
-.notice{display:none;margin-top:15px;border:2px solid #f59e0b;border-radius:14px;background:#fff8e8;padding:15px;color:#70420d}.notice.show{display:block}.notice.red{border-color:#e35d6a;background:#fff1f2;color:#7c2430}
-.notice h3{margin:0 0 6px;font-size:16px}.file{margin:9px 0;border:1px solid currentColor;border-radius:8px;background:rgba(255,255,255,.7);padding:8px 10px;font:800 11px Consolas,monospace}
-.notice ol{margin:8px 0 0;padding-left:21px;font-size:10.5px;line-height:1.7}
-.versionBox{display:none;margin-top:12px;padding:12px;border:1px solid #cdd9e7;border-radius:11px;background:#f8fbff;font-size:10.5px;line-height:1.6}.versionBox.show{display:block}.versionBox.ok{border-color:#9ddbc5;background:#f0fdf7;color:#17654d}.versionBox.warn{border-color:#efc171;background:#fff8e8;color:#84500b}.versionBox.error{border-color:#efb0b7;background:#fff2f3;color:#8f2632}
-@media(max-width:850px){.flow{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.page{padding:0 12px}}
+<link rel="stylesheet" href="./styles.css">
 
-/* ===== v21 layout: 상세 기능 좌측 + 설치 카드 우측 ===== */
-.top{display:none !important}
-.page{max-width:1440px;margin:18px auto 42px;padding:0 20px}
-.main-grid{
-  display:grid;
-  grid-template-columns:minmax(0,2.15fr) minmax(330px,.85fr);
-  gap:16px;
-  align-items:start;
-}
-.card{margin-top:0}
-
-.info-card{
-  padding:22px;
-  border-color:#c9d8e9;
-  background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%);
-}
-.info-card-head{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:18px;
-  padding-bottom:17px;
-  border-bottom:1px solid #e3eaf2;
-}
-.eyebrow{
-  color:#7890aa;
-  font-size:9px;
-  line-height:1;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.9px;
-  margin-bottom:7px;
-}
-.info-card h1{
-  margin:0;
-  color:#173f6b;
-  font-size:24px;
-  line-height:1.15;
-  letter-spacing:-.55px;
-}
-.lead{
-  margin:8px 0 0;
-  max-width:790px;
-  color:#5f7389;
-  font-size:11.5px;
-  line-height:1.7;
-}
-.info-card-tools{
-  flex:0 0 auto;
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  gap:8px;
-}
-.info-card-tools .lang{
-  display:flex;
-  gap:2px;
-  padding:3px;
-  border:1px solid #d5e0eb;
-  border-radius:9px;
-  background:#f7faff;
-}
-.info-card-tools .lang button{
-  border:0;
-  background:transparent;
-  color:#667b91;
-  padding:5px 8px;
-  border-radius:6px;
-  font-size:9.5px;
-  font-weight:850;
-  cursor:pointer;
-}
-.info-card-tools .lang button.active{
-  background:#fff;
-  color:#24568a;
-  box-shadow:0 1px 5px rgba(36,86,138,.10);
-}
-
-.workflow-title{
-  display:flex;
-  align-items:baseline;
-  gap:9px;
-  margin:18px 0 10px;
-  color:#234c76;
-  font-size:13px;
-  font-weight:900;
-}
-.workflow-title small{
-  color:#8495a8;
-  font-size:9.5px;
-  font-weight:600;
-}
-.workflow-list{
-  display:flex;
-  flex-direction:column;
-  gap:9px;
-}
-.workflow-step{
-  display:grid;
-  grid-template-columns:34px minmax(0,1fr);
-  gap:11px;
-  padding:12px 13px;
-  border:1px solid #dde6ef;
-  border-radius:12px;
-  background:linear-gradient(180deg,#fbfdff,#f7faff);
-  transition:border-color .14s ease,box-shadow .14s ease,transform .14s ease;
-}
-.workflow-step:hover{
-  border-color:#b5cbe2;
-  box-shadow:0 5px 14px rgba(33,78,125,.06);
-  transform:translateY(-1px);
-}
-.step-no{
-  width:28px;
-  height:28px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-top:1px;
-  border-radius:9px;
-  background:linear-gradient(135deg,#2e6ca8,#4d87c1);
-  color:#fff;
-  font-size:11px;
-  font-weight:900;
-  box-shadow:0 4px 9px rgba(45,105,165,.15);
-}
-.step-head{
-  display:flex;
-  align-items:center;
-  gap:7px;
-}
-.step-head h3{
-  margin:0;
-  color:#244b73;
-  font-size:12px;
-  line-height:1.25;
-}
-.step-tag{
-  margin-left:auto;
-  border:1px solid #d5e1ed;
-  background:#fff;
-  color:#6f8398;
-  border-radius:999px;
-  padding:2px 6px;
-  font-size:7.5px;
-  font-weight:900;
-  letter-spacing:.25px;
-}
-.step-body p{
-  margin:5px 0 7px;
-  color:#64788d;
-  font-size:10px;
-  line-height:1.6;
-}
-.step-points{
-  display:flex;
-  flex-wrap:wrap;
-  gap:5px;
-}
-.step-points span{
-  border:1px solid #dfe7f0;
-  border-radius:7px;
-  background:#fff;
-  color:#5a7189;
-  padding:3px 6px;
-  font-size:8.2px;
-  font-weight:750;
-}
-.security-note{
-  margin-top:12px;
-  display:flex;
-  gap:9px;
-  align-items:flex-start;
-  padding:10px 12px;
-  border-left:3px solid #5b8fd8;
-  border-radius:8px;
-  background:#f2f7fc;
-  color:#5c7289;
-  font-size:9.5px;
-  line-height:1.55;
-}
-.security-note b{
-  flex:0 0 auto;
-  color:#285784;
-}
-
-.install-card{
-  position:sticky;
-  top:18px;
-  padding:20px;
-  border-color:#bfd0e3;
-  background:linear-gradient(180deg,#ffffff,#f9fbfe);
-}
-.install-head{
-  align-items:flex-start;
-  padding-bottom:14px;
-  border-bottom:1px solid #e5ebf2;
-}
-.install-head .title{
-  font-size:16px;
-}
-.install-summary{
-  display:flex;
-  gap:10px;
-  margin-top:14px;
-  padding:11px;
-  border:1px solid #d9e4ef;
-  border-radius:11px;
-  background:#f6f9fd;
-}
-.summary-icon{
-  width:28px;height:28px;flex:0 0 28px;
-  display:flex;align-items:center;justify-content:center;
-  border-radius:9px;
-  background:#e7f1ff;
-  color:#2f68a5;
-  font-weight:900;
-}
-.install-summary b{
-  display:block;
-  color:#315879;
-  font-size:10px;
-  margin-bottom:3px;
-}
-.install-summary span{
-  display:block;
-  color:#718399;
-  font-size:9px;
-  line-height:1.45;
-}
-.install-card .actions{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:7px;
-}
-.install-card .btn{
-  width:100%;
-  margin:0;
-}
-.install-card .note{
-  padding:9px 10px;
-  border-radius:9px;
-  background:#f7f9fc;
-}
-.install-card .versionBox{
-  margin-top:9px;
-}
-.install-card .notice{
-  padding:12px;
-}
-.install-card .notice h3{
-  font-size:13px;
-}
-.install-card .file{
-  font-size:9px;
-  overflow-wrap:anywhere;
-}
-.install-foot{
-  margin-top:14px;
-  padding-top:12px;
-  border-top:1px solid #e5ebf2;
-  display:grid;
-  gap:8px;
-}
-.install-foot div{
-  display:flex;
-  flex-direction:column;
-  gap:3px;
-}
-.install-foot b{
-  color:#72859a;
-  font-size:8.5px;
-}
-.install-foot code{
-  display:block;
-  padding:6px 8px;
-  border:1px solid #e0e7ef;
-  border-radius:7px;
-  background:#f8fafc;
-  color:#46627f;
-  font-size:8.5px;
-  overflow-wrap:anywhere;
-}
-
-@media(max-width:1050px){
-  .main-grid{grid-template-columns:1fr}
-  .install-card{position:static}
-}
-@media(max-width:720px){
-  .page{padding:0 12px;margin-top:12px}
-  .info-card-head{flex-direction:column}
-  .info-card-tools{width:100%;flex-direction:row;justify-content:space-between;align-items:center}
-  .step-head{align-items:flex-start}
-  .step-tag{display:none}
-  .workflow-step{grid-template-columns:30px minmax(0,1fr)}
-}
-
-</style>
 </head>
 <body>
 <main class="page">
@@ -347,41 +20,41 @@ html,body{margin:0;min-height:100%;background:var(--bg);font-family:Inter,"Segoe
     <!-- 왼쪽: Edge Connector 상세 기능 카드 -->
     <section class="card info-card">
       <div class="info-card-head">
-        <div>
-          <div class="eyebrow">ProxySG Local Operations</div>
-          <h1 data-k="Edge Connector" data-e="Edge Connector">Edge Connector</h1>
-          <p class="lead"
-             data-k="SSH 및 Management HTTPS를 이용해 ProxySG에 직접 연결하고, 장비 설정부터 Local Admin 관리, Trace 정책 테스트, LIVE 조회와 분석까지 하나의 로컬 도구에서 수행합니다."
-             data-e="Connect directly to ProxySG over SSH and Management HTTPS, then handle device setup, Local Admin management, Trace policy testing, LIVE monitoring, and analysis from one local tool.">
-             SSH 및 Management HTTPS를 이용해 ProxySG에 직접 연결하고, 장비 설정부터 Local Admin 관리, Trace 정책 테스트, LIVE 조회와 분석까지 하나의 로컬 도구에서 수행합니다.
-          </p>
-        </div>
+        <div class="eyebrow">ProxySG Local Operations</div>
 
-        <div class="info-card-tools">
-          <div class="badge">● Edge Connector</div>
-          <div class="lang">
+        <div class="title-banner">
+          <h1 data-k="Edge Connector" data-e="Edge Connector">Edge Connector</h1>
+          <div class="lang title-lang">
             <button data-lang="ko" class="active">한국어</button>
             <button data-lang="en">English</button>
           </div>
         </div>
+
+        <p class="lead"
+           data-k="SSH 및 Management HTTPS를 이용해 ProxySG에 직접 연결하고, 장비 설정부터 Local Admin 관리, Trace 정책 테스트, LIVE 조회와 분석까지 하나의 로컬 도구에서 수행합니다."
+           data-e="Connect directly to ProxySG over SSH and Management HTTPS, then handle device setup, Local Admin management, Trace policy testing, LIVE monitoring, and analysis from one local tool.">
+           SSH 및 Management HTTPS를 이용해 ProxySG에 직접 연결하고, 장비 설정부터 Local Admin 관리, Trace 정책 테스트, LIVE 조회와 분석까지 하나의 로컬 도구에서 수행합니다.
+        </p>
       </div>
 
       <div class="workflow-title">
         <span data-k="사용 절차" data-e="Workflow">사용 절차</span>
-        <small data-k="실제 운영 순서에 맞춰 5단계로 진행합니다." data-e="Follow the five steps in normal operational order.">실제 운영 순서에 맞춰 5단계로 진행합니다.</small>
+        <small data-k="장비 설정을 기준으로 하위 작업이 좌측 트리 구조로 이어집니다." data-e="Child operations are shown as an indented tree below Device Settings.">장비 연결 후 목적에 따라 Local Admin 관리 또는 Trace 정책 작업으로 분기됩니다.</small>
       </div>
 
-      <div class="workflow-list">
-        <article class="workflow-step">
+      <div class="workflow-tree explorer-tree">
+        <svg id="workflowTreeSvg" class="workflow-tree-svg" aria-hidden="true"></svg>
+
+        <article class="workflow-step explorer-node tree-root-node">
           <div class="step-no">1</div>
           <div class="step-body">
             <div class="step-head">
               <h3 data-k="장비 설정" data-e="Device Settings">장비 설정</h3>
               <span class="step-tag">SSH · HTTPS</span>
             </div>
-            <p data-k="ProxySG의 관리 IP, SSH 접속 정보, Management HTTPS 정보를 등록합니다. 자주 사용하는 장비는 프로필로 저장해 이후 Trace 정책 작업이나 LIVE 조회에서 다시 입력하지 않고 사용할 수 있습니다."
-               data-e="Register the ProxySG management IP, SSH access information, and Management HTTPS settings. Frequently used devices can be saved as profiles so the same connection information can be reused for Trace policy work and LIVE monitoring.">
-               ProxySG의 관리 IP, SSH 접속 정보, Management HTTPS 정보를 등록합니다. 자주 사용하는 장비는 프로필로 저장해 이후 Trace 정책 작업이나 LIVE 조회에서 다시 입력하지 않고 사용할 수 있습니다.
+            <p data-k="ProxySG의 관리 IP, SSH 접속 정보, Management HTTPS 정보를 등록합니다. 자주 사용하는 장비는 프로필로 저장해 이후 Local Admin 관리나 Trace 정책 작업에서 다시 입력하지 않고 사용할 수 있습니다."
+               data-e="Register the ProxySG management IP, SSH access information, and Management HTTPS settings. Frequently used devices can be saved as profiles and reused later for Local Admin or Trace policy work.">
+               ProxySG의 관리 IP, SSH 접속 정보, Management HTTPS 정보를 등록합니다. 자주 사용하는 장비는 프로필로 저장해 이후 Local Admin 관리나 Trace 정책 작업에서 다시 입력하지 않고 사용할 수 있습니다.
             </p>
             <div class="step-points">
               <span data-k="장비 연결 정보 관리" data-e="Manage device connection settings">장비 연결 정보 관리</span>
@@ -391,81 +64,92 @@ html,body{margin:0;min-height:100%;background:var(--bg);font-family:Inter,"Segoe
           </div>
         </article>
 
-        <article class="workflow-step">
-          <div class="step-no">2</div>
-          <div class="step-body">
-            <div class="step-head">
-              <h3 data-k="Local Admin 관리" data-e="Local Admin Management">Local Admin 관리</h3>
-              <span class="step-tag">ADMIN</span>
+        <div class="tree-children level-1">
+          <article class="workflow-step explorer-node local-admin-node tree-child">
+            <div class="step-no">2A</div>
+            <div class="step-body">
+              <div class="step-head">
+                <h3 data-k="Local Admin 설정 / 관리" data-e="Local Admin Setup / Management">Local Admin 설정 / 관리</h3>
+                <span class="step-tag">ADMIN</span>
+              </div>
+              <p data-k="장비 연결 후 Local Admin 작업이 필요한 경우 이 경로로 분기합니다. ProxySG의 Local Admin 계정을 확인하고 추가·변경 등 운영에 필요한 계정 관리 작업을 수행하며, Trace 정책 작업과는 독립적으로 사용할 수 있습니다."
+                 data-e="After connecting to the device, use this branch when Local Admin work is required. Review local administrative accounts and perform account operations such as additions or changes independently from the Trace policy workflow.">
+                 장비 연결 후 Local Admin 작업이 필요한 경우 이 경로로 분기합니다. ProxySG의 Local Admin 계정을 확인하고 추가·변경 등 운영에 필요한 계정 관리 작업을 수행하며, Trace 정책 작업과는 독립적으로 사용할 수 있습니다.
+              </p>
+              <div class="step-points">
+                <span data-k="Local Admin 계정 확인" data-e="Review Local Admin accounts">Local Admin 계정 확인</span>
+                <span data-k="운영 계정 추가 / 변경" data-e="Add / change operational accounts">운영 계정 추가 / 변경</span>
+                <span data-k="Trace 작업과 독립적으로 수행" data-e="Independent from Trace workflow">Trace 작업과 독립적으로 수행</span>
+              </div>
             </div>
-            <p data-k="ProxySG의 Local Admin 계정을 확인하고 운영에 필요한 계정 관리 작업을 수행합니다. Trace 테스트와 별도로 관리 계정 관련 작업을 같은 Edge Connector 안에서 처리할 수 있도록 구성합니다."
-               data-e="Review ProxySG Local Admin accounts and perform the account management tasks needed for operations. Administrative account work can be handled in the same Edge Connector independently of Trace testing.">
-               ProxySG의 Local Admin 계정을 확인하고 운영에 필요한 계정 관리 작업을 수행합니다. Trace 테스트와 별도로 관리 계정 관련 작업을 같은 Edge Connector 안에서 처리할 수 있도록 구성합니다.
-            </p>
-            <div class="step-points">
-              <span data-k="Local Admin 계정 확인" data-e="Review Local Admin accounts">Local Admin 계정 확인</span>
-              <span data-k="운영 계정 관리" data-e="Manage operational accounts">운영 계정 관리</span>
-              <span data-k="Trace 기능과 분리된 관리 작업" data-e="Admin tasks separated from Trace workflow">Trace 기능과 분리된 관리 작업</span>
-            </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="workflow-step">
-          <div class="step-no">3</div>
-          <div class="step-body">
-            <div class="step-head">
-              <h3 data-k="Trace 정책 설정" data-e="Trace Policy">Trace 정책 설정</h3>
-              <span class="step-tag">LOCAL POLICY</span>
-            </div>
-            <p data-k="Source, Destination, 인증 사용자, HTTP Method/Service, Logging 이름과 Trace 파일명을 조건으로 Trace CPL을 생성하고 Local Policy에 적용합니다. 테스트 후에는 Edge Connector가 추가한 동일 Trace 정책만 찾아 안전하게 제거합니다."
-               data-e="Build Trace CPL using Source, Destination, authenticated user, HTTP Method/Service, logging name, and Trace filename conditions, then apply it to Local Policy. After testing, Edge Connector removes only the exact Trace policy it added.">
-               Source, Destination, 인증 사용자, HTTP Method/Service, Logging 이름과 Trace 파일명을 조건으로 Trace CPL을 생성하고 Local Policy에 적용합니다. 테스트 후에는 Edge Connector가 추가한 동일 Trace 정책만 찾아 안전하게 제거합니다.
-            </p>
-            <div class="step-points">
-              <span data-k="현재 Local Policy 조회" data-e="Read current Local Policy">현재 Local Policy 조회</span>
-              <span data-k="Trace CPL 자동 생성 / 미리보기" data-e="Generate / preview Trace CPL">Trace CPL 자동 생성 / 미리보기</span>
-              <span data-k="적용한 Trace 정책만 정확히 제거" data-e="Remove only the exact applied Trace policy">적용한 Trace 정책만 정확히 제거</span>
-            </div>
-          </div>
-        </article>
+          <div class="tree-branch trace-branch">
+            <article class="workflow-step explorer-node trace-node tree-child">
+              <div class="step-no">2B</div>
+              <div class="step-body">
+                <div class="step-head">
+                  <h3 data-k="Trace 정책 설정" data-e="Trace Policy Setup">Trace 정책 설정</h3>
+                  <span class="step-tag">LOCAL POLICY</span>
+                </div>
+                <p data-k="장비 연결 후 Trace 테스트가 필요한 경우 이 경로로 분기합니다. Source, Destination, 인증 사용자, HTTP Method/Service, Logging 이름과 Trace 파일명을 조건으로 Trace CPL을 생성해 Local Policy에 적용하고, 테스트 후에는 Edge Connector가 추가한 동일 정책만 안전하게 제거합니다."
+                   data-e="After connecting to the device, use this branch when Trace testing is required. Build Trace CPL using Source, Destination, authenticated user, HTTP Method/Service, logging name, and Trace filename conditions, apply it to Local Policy, and later remove only the exact policy added by Edge Connector.">
+                   장비 연결 후 Trace 테스트가 필요한 경우 이 경로로 분기합니다. Source, Destination, 인증 사용자, HTTP Method/Service, Logging 이름과 Trace 파일명을 조건으로 Trace CPL을 생성해 Local Policy에 적용하고, 테스트 후에는 Edge Connector가 추가한 동일 정책만 안전하게 제거합니다.
+                </p>
+                <div class="step-points">
+                  <span data-k="현재 Local Policy 조회" data-e="Read current Local Policy">현재 Local Policy 조회</span>
+                  <span data-k="Trace CPL 자동 생성 / 미리보기" data-e="Generate / preview Trace CPL">Trace CPL 자동 생성 / 미리보기</span>
+                  <span data-k="적용한 Trace 정책만 정확히 제거" data-e="Remove only the exact applied Trace policy">적용한 Trace 정책만 정확히 제거</span>
+                </div>
+              </div>
+            </article>
 
-        <article class="workflow-step">
-          <div class="step-no">4</div>
-          <div class="step-body">
-            <div class="step-head">
-              <h3 data-k="LIVE Trace / Access Log 조회" data-e="LIVE Trace / Access Log">LIVE Trace / Access Log 조회</h3>
-              <span class="step-tag">LIVE</span>
-            </div>
-            <p data-k="Management HTTPS를 통해 생성된 Trace 파일과 Access Log를 실시간으로 조회합니다. 최근 세션 중심으로 확인하거나 전체 내용을 펼쳐 보고, 로그 조건에 따라 필요한 트랜잭션을 빠르게 좁힐 수 있습니다."
-               data-e="Read generated Trace files and Access Logs live through Management HTTPS. Focus on recent sessions or expand the full output, then narrow transactions quickly using log conditions.">
-               Management HTTPS를 통해 생성된 Trace 파일과 Access Log를 실시간으로 조회합니다. 최근 세션 중심으로 확인하거나 전체 내용을 펼쳐 보고, 로그 조건에 따라 필요한 트랜잭션을 빠르게 좁힐 수 있습니다.
-            </p>
-            <div class="step-points">
-              <span data-k="LIVE Trace 갱신" data-e="LIVE Trace refresh">LIVE Trace 갱신</span>
-              <span data-k="Access Log Tail" data-e="Access Log Tail">Access Log Tail</span>
-              <span data-k="최근 세션 / 전체 세션 전환" data-e="Recent / all session view">최근 세션 / 전체 세션 전환</span>
-            </div>
-          </div>
-        </article>
+            <div class="tree-children level-2 single-child">
+              <div class="tree-branch live-branch">
+                <article class="workflow-step explorer-node downstream-node tree-child">
+                  <div class="step-no">3</div>
+                  <div class="step-body">
+                    <div class="step-head">
+                      <h3 data-k="LIVE Trace / Access Log 조회" data-e="LIVE Trace / Access Log">LIVE Trace / Access Log 조회</h3>
+                      <span class="step-tag">LIVE</span>
+                    </div>
+                    <p data-k="Management HTTPS를 통해 생성된 Trace 파일과 Access Log를 실시간으로 조회합니다. 최근 세션 중심으로 확인하거나 전체 내용을 펼쳐 보고, 로그 조건에 따라 필요한 트랜잭션을 빠르게 좁힐 수 있습니다."
+                       data-e="Read generated Trace files and Access Logs live through Management HTTPS. Focus on recent sessions or expand the full output, then narrow transactions quickly using log conditions.">
+                       Management HTTPS를 통해 생성된 Trace 파일과 Access Log를 실시간으로 조회합니다. 최근 세션 중심으로 확인하거나 전체 내용을 펼쳐 보고, 로그 조건에 따라 필요한 트랜잭션을 빠르게 좁힐 수 있습니다.
+                    </p>
+                    <div class="step-points">
+                      <span data-k="LIVE Trace 갱신" data-e="LIVE Trace refresh">LIVE Trace 갱신</span>
+                      <span data-k="Access Log Tail" data-e="Access Log Tail">Access Log Tail</span>
+                      <span data-k="최근 세션 / 전체 세션 전환" data-e="Recent / all session view">최근 세션 / 전체 세션 전환</span>
+                    </div>
+                  </div>
+                </article>
 
-        <article class="workflow-step">
-          <div class="step-no">5</div>
-          <div class="step-body">
-            <div class="step-head">
-              <h3 data-k="세션 분석" data-e="Session Analysis">세션 분석</h3>
-              <span class="step-tag">ANALYSIS</span>
-            </div>
-            <p data-k="Trace와 Access Log에서 Verdict, Protocol, Response Code, Transaction Timing, Miss/N/A/Late 등의 정보를 기준으로 문제 세션을 분석합니다. 정책 결과와 응답 지연을 함께 확인해 장애 원인 파악 시간을 줄입니다."
-               data-e="Analyze problem sessions using Verdict, Protocol, Response Code, Transaction Timing, Miss/N/A/Late, and related Trace or Access Log evidence. Review policy results and response delay together to shorten troubleshooting time.">
-               Trace와 Access Log에서 Verdict, Protocol, Response Code, Transaction Timing, Miss/N/A/Late 등의 정보를 기준으로 문제 세션을 분석합니다. 정책 결과와 응답 지연을 함께 확인해 장애 원인 파악 시간을 줄입니다.
-            </p>
-            <div class="step-points">
-              <span data-k="Verdict / Protocol / Response Code" data-e="Verdict / Protocol / Response Code">Verdict / Protocol / Response Code</span>
-              <span data-k="Transaction Timing 확인" data-e="Transaction Timing review">Transaction Timing 확인</span>
-              <span data-k="Miss / N/A / Late 필터" data-e="Miss / N/A / Late filters">Miss / N/A / Late 필터</span>
+                <div class="tree-children level-3 single-child">
+                  <article class="workflow-step explorer-node downstream-node tree-child tree-last">
+                    <div class="step-no">4</div>
+                    <div class="step-body">
+                      <div class="step-head">
+                        <h3 data-k="세션 분석" data-e="Session Analysis">세션 분석</h3>
+                        <span class="step-tag">ANALYSIS</span>
+                      </div>
+                      <p data-k="Trace와 Access Log에서 Verdict, Protocol, Response Code, Transaction Timing, Miss/N/A/Late 등의 정보를 기준으로 문제 세션을 분석합니다. 정책 결과와 응답 지연을 함께 확인해 장애 원인 파악 시간을 줄입니다."
+                         data-e="Analyze problem sessions using Verdict, Protocol, Response Code, Transaction Timing, Miss/N/A/Late, and related Trace or Access Log evidence. Review policy results and response delay together to shorten troubleshooting time.">
+                         Trace와 Access Log에서 Verdict, Protocol, Response Code, Transaction Timing, Miss/N/A/Late 등의 정보를 기준으로 문제 세션을 분석합니다. 정책 결과와 응답 지연을 함께 확인해 장애 원인 파악 시간을 줄입니다.
+                      </p>
+                      <div class="step-points">
+                        <span data-k="Verdict / Protocol / Response Code" data-e="Verdict / Protocol / Response Code">Verdict / Protocol / Response Code</span>
+                        <span data-k="Transaction Timing 확인" data-e="Transaction Timing review">Transaction Timing 확인</span>
+                        <span data-k="Miss / N/A / Late 필터" data-e="Miss / N/A / Late filters">Miss / N/A / Late 필터</span>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
             </div>
           </div>
-        </article>
+        </div>
+
       </div>
 
       <div class="security-note">
@@ -537,128 +221,7 @@ html,body{margin:0;min-height:100%;background:var(--bg);font-family:Inter,"Segoe
   </div>
 </main>
 
-<script>
-(() => {
-  const INSTALL_URL='./downloads/Install_Edge_Connector.cmd?v=20261015-2';
-  const UNINSTALL_URL='./downloads/Uninstall_Edge_Connector.cmd?v=20261015-1';
-  const VERSION_URL='./downloads/version.json';
-  const PROTOCOL='edge-connector://run';
-  const STATE_KEY='edgeConnectorState';
-  const VERSION_KEY='edgeConnectorInstalledVersion';
-  const INSTALL_NOTICE='edgeConnectorInstallerDownloaded';
-  const DELETE_NOTICE='edgeConnectorUninstallerDownloaded';
-  let channel=null,versionUi={status:'idle',repo:'',installed:'',msg:''};
 
-  const T={
-    ko:{
-      installed:'설치됨',notInstalled:'미설치',pending:'삭제 완료 대기 중',
-      install:'↓ Edge Connector 설치',run:'▶ Edge Connector 실행',version:'↻ 최신 버전 확인',latest:'✓ 최신 버전',reinstall:'↻ 최신 버전 재설치',del:'🗑 설치 삭제',
-      installDownloaded:'⚠ 다운로드 완료 · 설치 파일을 1회 실행하세요',deleteDownloaded:'⚠ 삭제 파일 다운로드됨 · 1회 실행하세요',
-      descInstalled:'Edge Connector가 설치되어 있습니다.',descNot:'처음 사용하는 PC에서는 설치 파일을 다운로드한 뒤 한 번 실행해야 합니다.',
-      noteInstalled:'버전 확인, 실행, 삭제를 이 화면에서 관리할 수 있습니다.',noteNot:'다운로드만으로는 설치되지 않습니다. 최초 한 번 CMD 실행이 필요합니다.',
-      installTitle:'중요 · 다운로드만으로 설치되지 않습니다',installLead:'다운로드된 설치 CMD를 한 번 실행하세요.',
-      is1:'브라우저 다운로드 목록을 엽니다.',is2:'Install_Edge_Connector.cmd를 실행합니다.',is3:'설치 완료 후 이 페이지가 자동으로 다시 열립니다.',
-      deleteTitle:'삭제 파일을 한 번 실행하세요',deleteLead:'다운로드된 삭제 CMD를 실행하면 로컬 Edge Connector가 제거됩니다.',
-      ds1:'브라우저 다운로드 목록에서 삭제 CMD를 찾습니다.',ds2:'Uninstall_Edge_Connector.cmd를 실행합니다.',ds3:'삭제 완료 후 이 페이지가 자동으로 다시 열립니다.',
-      installedVer:'설치 버전',repoVer:'Repo 최신 버전',ok:'현재 설치된 Edge Connector가 최신 버전입니다.',old:'새 버전이 있습니다. 최신 버전 재설치를 권장합니다.',unknown:'설치 버전 정보가 없습니다. 최신 버전 재설치를 권장합니다.',repoFail:'Repo 버전 정보를 확인하지 못했습니다.'
-    },
-    en:{
-      installed:'Installed',notInstalled:'Not installed',pending:'Waiting for uninstall',
-      install:'↓ Install Edge Connector',run:'▶ Run Edge Connector',version:'↻ Check latest version',latest:'✓ Up to date',reinstall:'↻ Reinstall latest',del:'🗑 Uninstall',
-      installDownloaded:'⚠ Download complete · Run the installer once',deleteDownloaded:'⚠ Uninstaller downloaded · Run it once',
-      descInstalled:'Edge Connector is installed.',descNot:'On a new PC, download and run the installer once.',
-      noteInstalled:'Manage version checks, launch and removal from this page.',noteNot:'Downloading alone does not install it. Run the CMD once.',
-      installTitle:'Important · Downloading alone does not install it',installLead:'Run the downloaded installer CMD once.',
-      is1:'Open your browser Downloads.',is2:'Run Install_Edge_Connector.cmd.',is3:'This page reopens automatically when installation finishes.',
-      deleteTitle:'Run the uninstaller once',deleteLead:'Run the downloaded CMD to remove the local Edge Connector.',
-      ds1:'Find the uninstaller CMD in Downloads.',ds2:'Run Uninstall_Edge_Connector.cmd.',ds3:'This page reopens automatically when removal finishes.',
-      installedVer:'Installed version',repoVer:'Latest repo version',ok:'The installed Edge Connector is up to date.',old:'A newer version is available. Reinstalling the latest version is recommended.',unknown:'Installed version is unknown. Reinstalling the latest version is recommended.',repoFail:'Could not read the repo version.'
-    }
-  };
-
-  const $=id=>document.getElementById(id);
-  const lang=()=>localStorage.getItem('edgeConnectorLanguage')==='en'?'en':'ko';
-  const tx=()=>T[lang()];
-  const norm=v=>{const m=String(v||'').replace(/^v/i,'').match(/(\d+(?:\.\d+){1,3})/);return m?m[1]:''};
-  const cmp=(a,b)=>{const x=norm(a).split('.').map(Number),y=norm(b).split('.').map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){if((x[i]||0)>(y[i]||0))return 1;if((x[i]||0)<(y[i]||0))return-1}return 0};
-
-  function publish(state){
-    const p={state,ts:Date.now()};
-    localStorage.setItem(STATE_KEY,JSON.stringify(p));
-    try{channel?.postMessage(p)}catch(_){}
-  }
-  function state(){
-    try{const p=JSON.parse(localStorage.getItem(STATE_KEY)||'null');if(p?.state)return p.state}catch(_){}
-    return 'uninstalled';
-  }
-  function installed(){return state()==='installed'}
-
-  function callback(){
-    const u=new URL(location.href),s=u.searchParams.get('connector');
-    if(s==='installed'){
-      publish('installed');
-      const v=norm(u.searchParams.get('version')||'');
-      if(v)localStorage.setItem(VERSION_KEY,v);
-      sessionStorage.removeItem(INSTALL_NOTICE);sessionStorage.removeItem(DELETE_NOTICE);
-      u.searchParams.delete('connector');u.searchParams.delete('version');u.searchParams.delete('_');history.replaceState(null,'',u);
-    }else if(s==='uninstalled'){
-      publish('uninstalled');localStorage.removeItem(VERSION_KEY);
-      sessionStorage.removeItem(INSTALL_NOTICE);sessionStorage.removeItem(DELETE_NOTICE);
-      u.searchParams.delete('connector');u.searchParams.delete('_');history.replaceState(null,'',u);
-    }
-  }
-  function download(url,name){const a=document.createElement('a');a.href=url;a.download=name;a.style.display='none';document.body.appendChild(a);a.click();setTimeout(()=>a.remove(),500)}
-  async function repoVersion(){
-    const r=await fetch(VERSION_URL+'?_='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;
-    const j=await r.json();return norm(j.edgeConnectorVersion||j.version||j.latestVersion||'');
-  }
-  function paintText(){
-    const l=lang(),t=tx();
-    document.documentElement.lang=l;
-    document.querySelectorAll('[data-k]').forEach(n=>n.textContent=l==='en'?n.dataset.e:n.dataset.k);
-    document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));
-    $('installTitle').textContent=t.installTitle;$('installLead').textContent=t.installLead;
-    $('is1').textContent=t.is1;$('is2').textContent=t.is2;$('is3').textContent=t.is3;
-    $('deleteTitle').textContent=t.deleteTitle;$('deleteLead').textContent=t.deleteLead;
-    $('ds1').textContent=t.ds1;$('ds2').textContent=t.ds2;$('ds3').textContent=t.ds3;
-  }
-  function render(){
-    callback();paintText();const t=tx(),ok=installed(),deleting=sessionStorage.getItem(DELETE_NOTICE)==='1'&&ok;
-    $('status').className='status '+(deleting?'pending':ok?'on':'');$('status').textContent='● '+(deleting?t.pending:ok?t.installed:t.notInstalled);
-    $('desc').textContent=ok?t.descInstalled:t.descNot;$('note').textContent=ok?t.noteInstalled:t.noteNot;
-    $('mainBtn').textContent=ok?t.run:(sessionStorage.getItem(INSTALL_NOTICE)==='1'?t.installDownloaded:t.install);
-    $('mainBtn').className='btn '+(ok?'primary':sessionStorage.getItem(INSTALL_NOTICE)==='1'?'warn':'primary');
-    $('versionBtn').style.display=ok?'':'none';$('deleteBtn').style.display=ok?'':'none';
-    $('versionBtn').textContent=versionUi.status==='latest'?t.latest:(versionUi.status==='old'||versionUi.status==='unknown'?t.reinstall:t.version);
-    $('deleteBtn').textContent=sessionStorage.getItem(DELETE_NOTICE)==='1'?t.deleteDownloaded:t.del;
-    $('installNotice').classList.toggle('show',!ok&&sessionStorage.getItem(INSTALL_NOTICE)==='1');
-    $('deleteNotice').classList.toggle('show',ok&&sessionStorage.getItem(DELETE_NOTICE)==='1');
-    if(!ok){$('versionBox').className='versionBox';$('versionBox').innerHTML=''}
-  }
-
-  $('mainBtn').onclick=()=>{if(installed())location.href=PROTOCOL;else{download(INSTALL_URL,'Install_Edge_Connector.cmd');sessionStorage.setItem(INSTALL_NOTICE,'1');render()}};
-  $('deleteBtn').onclick=()=>{if(!confirm(lang()==='en'?'Remove Edge Connector?':'설치된 Edge Connector를 삭제하시겠습니까?'))return;download(UNINSTALL_URL,'Uninstall_Edge_Connector.cmd');sessionStorage.setItem(DELETE_NOTICE,'1');render()};
-  $('versionBtn').onclick=async()=>{
-    const t=tx();
-    if(versionUi.status==='old'||versionUi.status==='unknown'){download(INSTALL_URL,'Install_Edge_Connector.cmd');sessionStorage.setItem(INSTALL_NOTICE,'1');return render()}
-    $('versionBtn').disabled=true;$('versionBtn').textContent=lang()==='en'?'Checking…':'버전 확인 중…';
-    try{
-      const rv=await repoVersion(),iv=norm(localStorage.getItem(VERSION_KEY)||'');versionUi.repo=rv;versionUi.installed=iv;
-      if(!iv){versionUi.status='unknown';versionUi.msg=t.unknown}else if(cmp(iv,rv)>=0){versionUi.status='latest';versionUi.msg=t.ok}else{versionUi.status='old';versionUi.msg=t.old}
-    }catch(_){versionUi.status='error';versionUi.msg=t.repoFail}
-    $('versionBtn').disabled=false;
-    $('versionBox').className='versionBox show '+(versionUi.status==='latest'?'ok':versionUi.status==='error'?'error':'warn');
-    $('versionBox').innerHTML=`<b>${t.installedVer}</b> ${versionUi.installed||'-'} &nbsp; · &nbsp; <b>${t.repoVer}</b> ${versionUi.repo||'-'}<br>${versionUi.msg}`;
-    render();
-  };
-  document.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>{localStorage.setItem('edgeConnectorLanguage',b.dataset.lang);render()});
-
-  function sync(){callback();if(!installed())sessionStorage.removeItem(DELETE_NOTICE);render()}
-  try{channel=new BroadcastChannel('edge-connector-state');channel.onmessage=sync}catch(_){}
-  window.addEventListener('storage',e=>{if(e.key===STATE_KEY)sync()});window.addEventListener('focus',sync);window.addEventListener('pageshow',sync);
-  let last=state(),n=0;const timer=setInterval(()=>{const s=state();if(s!==last){last=s;sync()}if(++n>=10)clearInterval(timer)},3000);
-  render();
-})();
-</script>
+  <script src="./app.js" defer></script>
 </body>
 </html>
