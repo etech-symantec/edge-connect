@@ -40,70 +40,506 @@ html,body{margin:0;min-height:100%;background:var(--bg);font-family:Inter,"Segoe
 .notice ol{margin:8px 0 0;padding-left:21px;font-size:10.5px;line-height:1.7}
 .versionBox{display:none;margin-top:12px;padding:12px;border:1px solid #cdd9e7;border-radius:11px;background:#f8fbff;font-size:10.5px;line-height:1.6}.versionBox.show{display:block}.versionBox.ok{border-color:#9ddbc5;background:#f0fdf7;color:#17654d}.versionBox.warn{border-color:#efc171;background:#fff8e8;color:#84500b}.versionBox.error{border-color:#efb0b7;background:#fff2f3;color:#8f2632}
 @media(max-width:850px){.flow{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.page{padding:0 12px}}
+
+/* ===== v21 layout: 상세 기능 좌측 + 설치 카드 우측 ===== */
+.top{display:none !important}
+.page{max-width:1440px;margin:18px auto 42px;padding:0 20px}
+.main-grid{
+  display:grid;
+  grid-template-columns:minmax(0,2.15fr) minmax(330px,.85fr);
+  gap:16px;
+  align-items:start;
+}
+.card{margin-top:0}
+
+.info-card{
+  padding:22px;
+  border-color:#c9d8e9;
+  background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%);
+}
+.info-card-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+  padding-bottom:17px;
+  border-bottom:1px solid #e3eaf2;
+}
+.eyebrow{
+  color:#7890aa;
+  font-size:9px;
+  line-height:1;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.9px;
+  margin-bottom:7px;
+}
+.info-card h1{
+  margin:0;
+  color:#173f6b;
+  font-size:24px;
+  line-height:1.15;
+  letter-spacing:-.55px;
+}
+.lead{
+  margin:8px 0 0;
+  max-width:790px;
+  color:#5f7389;
+  font-size:11.5px;
+  line-height:1.7;
+}
+.info-card-tools{
+  flex:0 0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:8px;
+}
+.info-card-tools .lang{
+  display:flex;
+  gap:2px;
+  padding:3px;
+  border:1px solid #d5e0eb;
+  border-radius:9px;
+  background:#f7faff;
+}
+.info-card-tools .lang button{
+  border:0;
+  background:transparent;
+  color:#667b91;
+  padding:5px 8px;
+  border-radius:6px;
+  font-size:9.5px;
+  font-weight:850;
+  cursor:pointer;
+}
+.info-card-tools .lang button.active{
+  background:#fff;
+  color:#24568a;
+  box-shadow:0 1px 5px rgba(36,86,138,.10);
+}
+
+.workflow-title{
+  display:flex;
+  align-items:baseline;
+  gap:9px;
+  margin:18px 0 10px;
+  color:#234c76;
+  font-size:13px;
+  font-weight:900;
+}
+.workflow-title small{
+  color:#8495a8;
+  font-size:9.5px;
+  font-weight:600;
+}
+.workflow-list{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+.workflow-step{
+  display:grid;
+  grid-template-columns:34px minmax(0,1fr);
+  gap:11px;
+  padding:12px 13px;
+  border:1px solid #dde6ef;
+  border-radius:12px;
+  background:linear-gradient(180deg,#fbfdff,#f7faff);
+  transition:border-color .14s ease,box-shadow .14s ease,transform .14s ease;
+}
+.workflow-step:hover{
+  border-color:#b5cbe2;
+  box-shadow:0 5px 14px rgba(33,78,125,.06);
+  transform:translateY(-1px);
+}
+.step-no{
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:1px;
+  border-radius:9px;
+  background:linear-gradient(135deg,#2e6ca8,#4d87c1);
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  box-shadow:0 4px 9px rgba(45,105,165,.15);
+}
+.step-head{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.step-head h3{
+  margin:0;
+  color:#244b73;
+  font-size:12px;
+  line-height:1.25;
+}
+.step-tag{
+  margin-left:auto;
+  border:1px solid #d5e1ed;
+  background:#fff;
+  color:#6f8398;
+  border-radius:999px;
+  padding:2px 6px;
+  font-size:7.5px;
+  font-weight:900;
+  letter-spacing:.25px;
+}
+.step-body p{
+  margin:5px 0 7px;
+  color:#64788d;
+  font-size:10px;
+  line-height:1.6;
+}
+.step-points{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+}
+.step-points span{
+  border:1px solid #dfe7f0;
+  border-radius:7px;
+  background:#fff;
+  color:#5a7189;
+  padding:3px 6px;
+  font-size:8.2px;
+  font-weight:750;
+}
+.security-note{
+  margin-top:12px;
+  display:flex;
+  gap:9px;
+  align-items:flex-start;
+  padding:10px 12px;
+  border-left:3px solid #5b8fd8;
+  border-radius:8px;
+  background:#f2f7fc;
+  color:#5c7289;
+  font-size:9.5px;
+  line-height:1.55;
+}
+.security-note b{
+  flex:0 0 auto;
+  color:#285784;
+}
+
+.install-card{
+  position:sticky;
+  top:18px;
+  padding:20px;
+  border-color:#bfd0e3;
+  background:linear-gradient(180deg,#ffffff,#f9fbfe);
+}
+.install-head{
+  align-items:flex-start;
+  padding-bottom:14px;
+  border-bottom:1px solid #e5ebf2;
+}
+.install-head .title{
+  font-size:16px;
+}
+.install-summary{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+  padding:11px;
+  border:1px solid #d9e4ef;
+  border-radius:11px;
+  background:#f6f9fd;
+}
+.summary-icon{
+  width:28px;height:28px;flex:0 0 28px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:9px;
+  background:#e7f1ff;
+  color:#2f68a5;
+  font-weight:900;
+}
+.install-summary b{
+  display:block;
+  color:#315879;
+  font-size:10px;
+  margin-bottom:3px;
+}
+.install-summary span{
+  display:block;
+  color:#718399;
+  font-size:9px;
+  line-height:1.45;
+}
+.install-card .actions{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:7px;
+}
+.install-card .btn{
+  width:100%;
+  margin:0;
+}
+.install-card .note{
+  padding:9px 10px;
+  border-radius:9px;
+  background:#f7f9fc;
+}
+.install-card .versionBox{
+  margin-top:9px;
+}
+.install-card .notice{
+  padding:12px;
+}
+.install-card .notice h3{
+  font-size:13px;
+}
+.install-card .file{
+  font-size:9px;
+  overflow-wrap:anywhere;
+}
+.install-foot{
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid #e5ebf2;
+  display:grid;
+  gap:8px;
+}
+.install-foot div{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.install-foot b{
+  color:#72859a;
+  font-size:8.5px;
+}
+.install-foot code{
+  display:block;
+  padding:6px 8px;
+  border:1px solid #e0e7ef;
+  border-radius:7px;
+  background:#f8fafc;
+  color:#46627f;
+  font-size:8.5px;
+  overflow-wrap:anywhere;
+}
+
+@media(max-width:1050px){
+  .main-grid{grid-template-columns:1fr}
+  .install-card{position:static}
+}
+@media(max-width:720px){
+  .page{padding:0 12px;margin-top:12px}
+  .info-card-head{flex-direction:column}
+  .info-card-tools{width:100%;flex-direction:row;justify-content:space-between;align-items:center}
+  .step-head{align-items:flex-start}
+  .step-tag{display:none}
+  .workflow-step{grid-template-columns:30px minmax(0,1fr)}
+}
+
 </style>
 </head>
 <body>
-
-<!-- 공통 헤더 + 제목 + 버전 -->
-<script>
-  window.pageTitle = "ProxySG 운영 · 분석 도구";
-  window.pageVersion = "ver.2026.10.15";
-</script> 
-<script src="https://etech-symantec.github.io/header.js"></script>
-
-<header class="top">
-  <div class="brand">ProxySG Edge Connector</div>
-  <div class="sub">by EtechSystem</div>
-  <div class="lang"><button data-lang="ko" class="active">한국어</button><button data-lang="en">English</button></div>
-</header>
-
 <main class="page">
-  <section class="hero">
-    <div>
-      <h1 data-k="ProxySG 직접 연결 · Edge Connector" data-e="Direct ProxySG Connection · Edge Connector">ProxySG 직접 연결 · Edge Connector</h1>
-      <p data-k="SSH/Management HTTPS를 이용해 Local Admin 관리, Local Policy/Trace 정책 운영, LIVE Trace 및 Access Log 분석을 수행하는 로컬 연결 도구입니다."
-         data-e="A local connectivity tool for Local Admin management, Local Policy/Trace operations, LIVE Trace and Access Log analysis over SSH/Management HTTPS.">SSH/Management HTTPS를 이용해 Local Admin 관리, Local Policy/Trace 정책 운영, LIVE Trace 및 Access Log 분석을 수행하는 로컬 연결 도구입니다.</p>
-      <div class="flow">
-        <div class="step"><b data-k="1. 장비 설정" data-e="1. Device Settings">1. 장비 설정</b><span data-k="SSH / Management HTTPS" data-e="SSH / Management HTTPS">SSH / Management HTTPS</span></div>
-        <div class="step"><b data-k="2. Local Admin" data-e="2. Local Admin">2. Local Admin</b><span data-k="계정 확인 및 관리" data-e="Account review and management">계정 확인 및 관리</span></div>
-        <div class="step"><b data-k="3. Trace 정책" data-e="3. Trace Policy">3. Trace 정책</b><span data-k="정책 적용 · 테스트 · 제거" data-e="Apply · test · remove">정책 적용 · 테스트 · 제거</span></div>
-        <div class="step"><b data-k="4. LIVE 조회" data-e="4. LIVE View">4. LIVE 조회</b><span data-k="Trace / Access Log" data-e="Trace / Access Log">Trace / Access Log</span></div>
-        <div class="step"><b data-k="5. 분석" data-e="5. Analysis">5. 분석</b><span data-k="Verdict · Code · Timing" data-e="Verdict · Code · Timing">Verdict · Code · Timing</span></div>
-      </div>
-    </div>
-    <div class="badge">● Edge Connector</div>
-  </section>
+  <div class="main-grid">
 
-  <section class="card">
-    <div class="head">
-      <div><div class="title">Edge Connector</div><div class="desc" id="desc"></div></div>
-      <div class="status" id="status">●</div>
-    </div>
-    <div class="actions">
-      <button id="mainBtn" class="btn primary"></button>
-      <button id="versionBtn" class="btn version" style="display:none"></button>
-      <button id="deleteBtn" class="btn delete" style="display:none"></button>
-    </div>
-    <div class="note" id="note"></div>
-    <div id="versionBox" class="versionBox"></div>
-    <div id="installNotice" class="notice">
-      <h3 id="installTitle"></h3>
-      <div id="installLead"></div>
-      <div class="file">Install_Edge_Connector.cmd</div>
-      <ol><li id="is1"></li><li id="is2"></li><li id="is3"></li></ol>
-    </div>
-    <div id="deleteNotice" class="notice red">
-      <h3 id="deleteTitle"></h3>
-      <div id="deleteLead"></div>
-      <div class="file">Uninstall_Edge_Connector.cmd</div>
-      <ol><li id="ds1"></li><li id="ds2"></li><li id="ds3"></li></ol>
-    </div>
-  </section>
+    <!-- 왼쪽: Edge Connector 상세 기능 카드 -->
+    <section class="card info-card">
+      <div class="info-card-head">
+        <div>
+          <div class="eyebrow">ProxySG Local Operations</div>
+          <h1 data-k="Edge Connector" data-e="Edge Connector">Edge Connector</h1>
+          <p class="lead"
+             data-k="SSH 및 Management HTTPS를 이용해 ProxySG에 직접 연결하고, 장비 설정부터 Local Admin 관리, Trace 정책 테스트, LIVE 조회와 분석까지 하나의 로컬 도구에서 수행합니다."
+             data-e="Connect directly to ProxySG over SSH and Management HTTPS, then handle device setup, Local Admin management, Trace policy testing, LIVE monitoring, and analysis from one local tool.">
+             SSH 및 Management HTTPS를 이용해 ProxySG에 직접 연결하고, 장비 설정부터 Local Admin 관리, Trace 정책 테스트, LIVE 조회와 분석까지 하나의 로컬 도구에서 수행합니다.
+          </p>
+        </div>
+
+        <div class="info-card-tools">
+          <div class="badge">● Edge Connector</div>
+          <div class="lang">
+            <button data-lang="ko" class="active">한국어</button>
+            <button data-lang="en">English</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="workflow-title">
+        <span data-k="사용 절차" data-e="Workflow">사용 절차</span>
+        <small data-k="실제 운영 순서에 맞춰 5단계로 진행합니다." data-e="Follow the five steps in normal operational order.">실제 운영 순서에 맞춰 5단계로 진행합니다.</small>
+      </div>
+
+      <div class="workflow-list">
+        <article class="workflow-step">
+          <div class="step-no">1</div>
+          <div class="step-body">
+            <div class="step-head">
+              <h3 data-k="장비 설정" data-e="Device Settings">장비 설정</h3>
+              <span class="step-tag">SSH · HTTPS</span>
+            </div>
+            <p data-k="ProxySG의 관리 IP, SSH 접속 정보, Management HTTPS 정보를 등록합니다. 자주 사용하는 장비는 프로필로 저장해 이후 Trace 정책 작업이나 LIVE 조회에서 다시 입력하지 않고 사용할 수 있습니다."
+               data-e="Register the ProxySG management IP, SSH access information, and Management HTTPS settings. Frequently used devices can be saved as profiles so the same connection information can be reused for Trace policy work and LIVE monitoring.">
+               ProxySG의 관리 IP, SSH 접속 정보, Management HTTPS 정보를 등록합니다. 자주 사용하는 장비는 프로필로 저장해 이후 Trace 정책 작업이나 LIVE 조회에서 다시 입력하지 않고 사용할 수 있습니다.
+            </p>
+            <div class="step-points">
+              <span data-k="장비 연결 정보 관리" data-e="Manage device connection settings">장비 연결 정보 관리</span>
+              <span data-k="SSH / Management HTTPS 분리 설정" data-e="Separate SSH / Management HTTPS settings">SSH / Management HTTPS 분리 설정</span>
+              <span data-k="장비 프로필 재사용" data-e="Reuse saved device profiles">장비 프로필 재사용</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="workflow-step">
+          <div class="step-no">2</div>
+          <div class="step-body">
+            <div class="step-head">
+              <h3 data-k="Local Admin 관리" data-e="Local Admin Management">Local Admin 관리</h3>
+              <span class="step-tag">ADMIN</span>
+            </div>
+            <p data-k="ProxySG의 Local Admin 계정을 확인하고 운영에 필요한 계정 관리 작업을 수행합니다. Trace 테스트와 별도로 관리 계정 관련 작업을 같은 Edge Connector 안에서 처리할 수 있도록 구성합니다."
+               data-e="Review ProxySG Local Admin accounts and perform the account management tasks needed for operations. Administrative account work can be handled in the same Edge Connector independently of Trace testing.">
+               ProxySG의 Local Admin 계정을 확인하고 운영에 필요한 계정 관리 작업을 수행합니다. Trace 테스트와 별도로 관리 계정 관련 작업을 같은 Edge Connector 안에서 처리할 수 있도록 구성합니다.
+            </p>
+            <div class="step-points">
+              <span data-k="Local Admin 계정 확인" data-e="Review Local Admin accounts">Local Admin 계정 확인</span>
+              <span data-k="운영 계정 관리" data-e="Manage operational accounts">운영 계정 관리</span>
+              <span data-k="Trace 기능과 분리된 관리 작업" data-e="Admin tasks separated from Trace workflow">Trace 기능과 분리된 관리 작업</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="workflow-step">
+          <div class="step-no">3</div>
+          <div class="step-body">
+            <div class="step-head">
+              <h3 data-k="Trace 정책 설정" data-e="Trace Policy">Trace 정책 설정</h3>
+              <span class="step-tag">LOCAL POLICY</span>
+            </div>
+            <p data-k="Source, Destination, 인증 사용자, HTTP Method/Service, Logging 이름과 Trace 파일명을 조건으로 Trace CPL을 생성하고 Local Policy에 적용합니다. 테스트 후에는 Edge Connector가 추가한 동일 Trace 정책만 찾아 안전하게 제거합니다."
+               data-e="Build Trace CPL using Source, Destination, authenticated user, HTTP Method/Service, logging name, and Trace filename conditions, then apply it to Local Policy. After testing, Edge Connector removes only the exact Trace policy it added.">
+               Source, Destination, 인증 사용자, HTTP Method/Service, Logging 이름과 Trace 파일명을 조건으로 Trace CPL을 생성하고 Local Policy에 적용합니다. 테스트 후에는 Edge Connector가 추가한 동일 Trace 정책만 찾아 안전하게 제거합니다.
+            </p>
+            <div class="step-points">
+              <span data-k="현재 Local Policy 조회" data-e="Read current Local Policy">현재 Local Policy 조회</span>
+              <span data-k="Trace CPL 자동 생성 / 미리보기" data-e="Generate / preview Trace CPL">Trace CPL 자동 생성 / 미리보기</span>
+              <span data-k="적용한 Trace 정책만 정확히 제거" data-e="Remove only the exact applied Trace policy">적용한 Trace 정책만 정확히 제거</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="workflow-step">
+          <div class="step-no">4</div>
+          <div class="step-body">
+            <div class="step-head">
+              <h3 data-k="LIVE Trace / Access Log 조회" data-e="LIVE Trace / Access Log">LIVE Trace / Access Log 조회</h3>
+              <span class="step-tag">LIVE</span>
+            </div>
+            <p data-k="Management HTTPS를 통해 생성된 Trace 파일과 Access Log를 실시간으로 조회합니다. 최근 세션 중심으로 확인하거나 전체 내용을 펼쳐 보고, 로그 조건에 따라 필요한 트랜잭션을 빠르게 좁힐 수 있습니다."
+               data-e="Read generated Trace files and Access Logs live through Management HTTPS. Focus on recent sessions or expand the full output, then narrow transactions quickly using log conditions.">
+               Management HTTPS를 통해 생성된 Trace 파일과 Access Log를 실시간으로 조회합니다. 최근 세션 중심으로 확인하거나 전체 내용을 펼쳐 보고, 로그 조건에 따라 필요한 트랜잭션을 빠르게 좁힐 수 있습니다.
+            </p>
+            <div class="step-points">
+              <span data-k="LIVE Trace 갱신" data-e="LIVE Trace refresh">LIVE Trace 갱신</span>
+              <span data-k="Access Log Tail" data-e="Access Log Tail">Access Log Tail</span>
+              <span data-k="최근 세션 / 전체 세션 전환" data-e="Recent / all session view">최근 세션 / 전체 세션 전환</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="workflow-step">
+          <div class="step-no">5</div>
+          <div class="step-body">
+            <div class="step-head">
+              <h3 data-k="세션 분석" data-e="Session Analysis">세션 분석</h3>
+              <span class="step-tag">ANALYSIS</span>
+            </div>
+            <p data-k="Trace와 Access Log에서 Verdict, Protocol, Response Code, Transaction Timing, Miss/N/A/Late 등의 정보를 기준으로 문제 세션을 분석합니다. 정책 결과와 응답 지연을 함께 확인해 장애 원인 파악 시간을 줄입니다."
+               data-e="Analyze problem sessions using Verdict, Protocol, Response Code, Transaction Timing, Miss/N/A/Late, and related Trace or Access Log evidence. Review policy results and response delay together to shorten troubleshooting time.">
+               Trace와 Access Log에서 Verdict, Protocol, Response Code, Transaction Timing, Miss/N/A/Late 등의 정보를 기준으로 문제 세션을 분석합니다. 정책 결과와 응답 지연을 함께 확인해 장애 원인 파악 시간을 줄입니다.
+            </p>
+            <div class="step-points">
+              <span data-k="Verdict / Protocol / Response Code" data-e="Verdict / Protocol / Response Code">Verdict / Protocol / Response Code</span>
+              <span data-k="Transaction Timing 확인" data-e="Transaction Timing review">Transaction Timing 확인</span>
+              <span data-k="Miss / N/A / Late 필터" data-e="Miss / N/A / Late filters">Miss / N/A / Late 필터</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="security-note">
+        <b data-k="로컬 실행 방식" data-e="Local execution model">로컬 실행 방식</b>
+        <span data-k="브라우저가 ProxySG에 직접 SSH 연결하는 방식이 아니라, Windows에 설치된 Edge Connector가 로컬에서 장비와 통신합니다."
+              data-e="The browser does not connect to ProxySG over SSH directly. The locally installed Windows Edge Connector communicates with the device.">
+          브라우저가 ProxySG에 직접 SSH 연결하는 방식이 아니라, Windows에 설치된 Edge Connector가 로컬에서 장비와 통신합니다.
+        </span>
+      </div>
+    </section>
+
+    <!-- 오른쪽: 설치 / 실행 카드 -->
+    <aside class="card install-card">
+      <div class="head install-head">
+        <div>
+          <div class="eyebrow">Windows Local Client</div>
+          <div class="title" data-k="Edge Connector 설치 및 실행" data-e="Install & Run Edge Connector">Edge Connector 설치 및 실행</div>
+          <div class="desc" id="desc"></div>
+        </div>
+        <div class="status" id="status">●</div>
+      </div>
+
+      <div class="install-summary">
+        <div class="summary-icon">↗</div>
+        <div>
+          <b data-k="최초 1회 설치 후 바로 실행" data-e="Install once, then launch directly">최초 1회 설치 후 바로 실행</b>
+          <span data-k="설치 상태와 최신 버전을 확인하고 필요할 때 재설치 또는 삭제할 수 있습니다."
+                data-e="Check installation and version status, then reinstall or remove the connector when needed.">
+            설치 상태와 최신 버전을 확인하고 필요할 때 재설치 또는 삭제할 수 있습니다.
+          </span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="mainBtn" class="btn primary"></button>
+        <button id="versionBtn" class="btn version" style="display:none"></button>
+        <button id="deleteBtn" class="btn delete" style="display:none"></button>
+      </div>
+
+      <div class="note" id="note"></div>
+      <div id="versionBox" class="versionBox"></div>
+
+      <div id="installNotice" class="notice">
+        <h3 id="installTitle"></h3>
+        <div id="installLead"></div>
+        <div class="file">Install_Edge_Connector.cmd</div>
+        <ol><li id="is1"></li><li id="is2"></li><li id="is3"></li></ol>
+      </div>
+
+      <div id="deleteNotice" class="notice red">
+        <h3 id="deleteTitle"></h3>
+        <div id="deleteLead"></div>
+        <div class="file">Uninstall_Edge_Connector.cmd</div>
+        <ol><li id="ds1"></li><li id="ds2"></li><li id="ds3"></li></ol>
+      </div>
+
+      <div class="install-foot">
+        <div>
+          <b data-k="설치 위치" data-e="Install location">설치 위치</b>
+          <code>%LOCALAPPDATA%\Etech\EdgeConnector</code>
+        </div>
+        <div>
+          <b data-k="실행 방식" data-e="Launch method">실행 방식</b>
+          <code>edge-connector://run</code>
+        </div>
+      </div>
+    </aside>
+
+  </div>
 </main>
 
 <script>
 (() => {
-  const INSTALL_URL='./downloads/Install_Edge_Connector.cmd?v=20261015-1';
+  const INSTALL_URL='./downloads/Install_Edge_Connector.cmd?v=20261015-2';
   const UNINSTALL_URL='./downloads/Uninstall_Edge_Connector.cmd?v=20261015-1';
   const VERSION_URL='./downloads/version.json';
   const PROTOCOL='edge-connector://run';
