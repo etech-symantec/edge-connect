@@ -1447,3 +1447,25 @@ html,body{margin:0;min-height:100%;background:var(--bg);font-family:Inter,"Segoe
   background:#fdfaff !important;
   color:#735c8c !important;
 }
+
+
+/* ===== v22.0: Sysinfo / Exception Page branch ===== */
+.sysinfo-node{
+  border-color:#c7d9e8 !important;
+  background:linear-gradient(180deg,#fbfeff 0%,#f1f8fc 100%) !important;
+}
+.sysinfo-node .step-no{
+  background:linear-gradient(135deg,#287b93,#45a1b8) !important;
+  box-shadow:0 4px 9px rgba(40,123,147,.16) !important;
+}
+.sysinfo-node .step-head h3{color:#236d82 !important}
+.sysinfo-node .step-tag{
+  border-color:#cfe2e9 !important;
+  background:#f7fcfd !important;
+  color:#4d8190 !important;
+}
+.sysinfo-node .step-points span{
+  border-color:#d9e8ed !important;
+  background:#fbfefe !important;
+  color:#557986 !important;
+}
