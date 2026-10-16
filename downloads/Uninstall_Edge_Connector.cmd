@@ -15,7 +15,7 @@ timeout /t 1 /nobreak >nul
 
 echo [2/4] Removing URL Protocol registrations...
 reg delete "HKCU\Software\Classes\edge-connector" /f >nul 2>&1
-rem legacy (ProxySG Policy Trace Edge Connector) registrations
+rem legacy (ProxySG Policy Trace Editor) registrations
 reg delete "HKCU\Software\Classes\proxysg-trace-v6" /f >nul 2>&1
 reg delete "HKCU\Software\Classes\proxysg-trace-v5" /f >nul 2>&1
 reg delete "HKCU\Software\Classes\proxysg-trace" /f >nul 2>&1
@@ -34,7 +34,7 @@ if exist "%APPDIR%" (
 echo [4/4] Finishing...
 >> "%LOGFILE%" echo [%date% %time%] Uninstall completed successfully
 
-start "" "https://etech-symantec.github.io/trace/?mode=direct&launcher=uninstalled"
+start "" "https://etech-symantec.github.io/edge-connect/?mode=direct&launcher=uninstalled"
 
 timeout /t 2 /nobreak >nul
 exit /b 0

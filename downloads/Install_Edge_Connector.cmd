@@ -2,7 +2,7 @@
 setlocal EnableExtensions DisableDelayedExpansion
 title Edge Connector - Install / Repair
 
-set "BASEURL=https://etech-symantec.github.io/trace/downloads"
+set "BASEURL=https://etech-symantec.github.io/edge-connect/downloads"
 set "APPDIR=%LOCALAPPDATA%\Etech\EdgeConnector"
 set "LAUNCHER=%APPDIR%\Edge_Connector_Launcher.cmd"
 set "EDITOR=%APPDIR%\Edge_Connector.exe"
@@ -24,10 +24,10 @@ if not exist "%APPDIR%" mkdir "%APPDIR%" >nul 2>&1
 if errorlevel 1 goto :fail
 
 rem ------------------------------------------------------------
-rem Remove leftovers of the old "ProxySG Policy Trace Edge Connector" install
+rem Remove leftovers of the old "ProxySG Policy Trace Editor" install
 rem (old install folder + old URL protocol registrations).
 rem ------------------------------------------------------------
-powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { try { $_.ProcessName -like 'ProxySG_Policy_Trace_Edge Connector*' } catch { $false } } | Stop-Process -Force -ErrorAction SilentlyContinue" >nul 2>&1
+powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { try { $_.ProcessName -like 'ProxySG_Policy_Trace_Editor*' } catch { $false } } | Stop-Process -Force -ErrorAction SilentlyContinue" >nul 2>&1
 reg delete "HKCU\Software\Classes\proxysg-trace-v6" /f >nul 2>&1
 reg delete "HKCU\Software\Classes\proxysg-trace-v5" /f >nul 2>&1
 reg delete "HKCU\Software\Classes\proxysg-trace" /f >nul 2>&1
@@ -54,7 +54,7 @@ set "REGFILE=%TEMP%\edge_connector_%RANDOM%.reg"
 set "COMSPEC_ESC=%ComSpec:\=\\%"
 set "LAUNCHER_ESC=%LAUNCHER:\=\\%"
 
-> "%REGFILE%" echo Windows Registry Edge Connector Version 5.00
+> "%REGFILE%" echo Windows Registry Editor Version 5.00
 >>"%REGFILE%" echo.
 >>"%REGFILE%" echo [HKEY_CURRENT_USER\Software\Classes\edge-connector]
 >>"%REGFILE%" echo @="URL:Edge Connector Launcher"
@@ -154,7 +154,7 @@ if exist "%EXTRACTDIR%" rmdir /s /q "%EXTRACTDIR%" >nul 2>&1
 echo [OK] Installation completed successfully.
 
 rem Open callback page so the web UI changes from Install to Run.
-start "" "https://etech-symantec.github.io/trace/?mode=direct&launcher=installed"
+start "" "https://etech-symantec.github.io/edge-connect/?mode=direct&launcher=installed"
 
 timeout /t 2 /nobreak >nul
 exit /b 0
