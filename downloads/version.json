@@ -1,6 +1,6 @@
 {
-  "version": "1.36",
-  "sha256": "526bd4440f1e535aa341655eb4e51f4adfab4f0324a356ead95896285d46d548",
+  "version": "1.37",
+  "sha256": "548ea10641bdc78330464565628f1dea85e80f7441d87807acfb1b6d16ed3458",
   "file": "Edge_Connector.exe",
   "launcherSHA256": "9b9edadb697bf0efbe3c7da448110a128712e7397b3f442f010b75b17e30c6e6",
   "launcherVersion": "1.0.1",
