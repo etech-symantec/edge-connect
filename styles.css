@@ -1469,3 +1469,112 @@ html,body{margin:0;min-height:100%;background:var(--bg);font-family:Inter,"Segoe
   background:#fbfefe !important;
   color:#557986 !important;
 }
+
+
+/* ===== v22.1: progressive depth expansion ===== */
+
+/* Only level 1 (the 2x cards) is visible initially. */
+.tree-children.level-2,
+.tree-children.level-3{
+  display:none;
+}
+.tree-children.level-2.is-open,
+.tree-children.level-3.is-open{
+  display:block;
+  animation:depthReveal .18s ease-out;
+}
+@keyframes depthReveal{
+  from{opacity:0;transform:translateY(-5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Cards that own a deeper level behave like expandable Explorer rows. */
+.workflow-step.has-children{
+  cursor:pointer;
+}
+.workflow-step.has-children:hover{
+  border-color:#d69ca5 !important;
+  box-shadow:0 4px 13px rgba(159,52,66,.08) !important;
+}
+.workflow-step.has-children:focus-visible{
+  outline:2px solid rgba(185,74,87,.28);
+  outline-offset:2px;
+}
+
+/* Small expand/collapse control in the card header. */
+.depth-toggle{
+  flex:0 0 auto;
+  width:24px;
+  height:24px;
+  margin-left:2px;
+  border:1px solid #e5c9ce;
+  border-radius:7px;
+  background:#fffafb;
+  color:#a64a57;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  font-size:12px;
+  line-height:1;
+  font-weight:900;
+  cursor:pointer;
+  transition:transform .15s ease,background .15s ease,border-color .15s ease;
+}
+.depth-toggle:hover{
+  background:#fff1f3;
+  border-color:#ddaab1;
+}
+.workflow-step.is-expanded .depth-toggle{
+  transform:rotate(90deg);
+  background:#fff2f4;
+}
+
+/* Keep tag + toggle neatly aligned at the right side. */
+.workflow-step.has-children .step-head{
+  gap:7px;
+}
+.workflow-step.has-children .step-tag{
+  margin-left:auto;
+}
+.workflow-step.has-children .depth-toggle{
+  margin-left:0;
+}
+
+/* Hidden descendants must not leave unused vertical space. */
+.tree-branch > .tree-children:not(.is-open){
+  margin:0 !important;
+  padding:0 !important;
+}
+
+/* On mobile, keep the toggle easy to tap. */
+@media(max-width:760px){
+  .depth-toggle{
+    width:28px;
+    height:28px;
+  }
+}
+
+
+/* ===== v22.2: Sysinfo / Exception Page separated ===== */
+.exception-node{
+  border-color:#ead4b5 !important;
+  background:linear-gradient(180deg,#fffefd 0%,#fff8ee 100%) !important;
+}
+.exception-node .step-no{
+  background:linear-gradient(135deg,#c47a28,#de9a45) !important;
+  box-shadow:0 4px 9px rgba(196,122,40,.16) !important;
+}
+.exception-node .step-head h3{
+  color:#9a5b18 !important;
+}
+.exception-node .step-tag{
+  border-color:#ead7bc !important;
+  background:#fffaf3 !important;
+  color:#a46c2c !important;
+}
+.exception-node .step-points span{
+  border-color:#eee0cb !important;
+  background:#fffaf5 !important;
+  color:#8d6a43 !important;
+}

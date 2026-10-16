@@ -31,15 +31,15 @@
         </div>
 
         <p class="lead"
-           data-k="SSH 및 Management HTTPS를 이용해 ProxySG에 직접 연결하고, 장비 설정부터 Local Admin 관리, Trace 정책 테스트, LIVE 조회·분석, MIB/SNMP 조회, Sysinfo 확인과 Exception Page 편집까지 하나의 로컬 도구에서 수행합니다."
-           data-e="Connect directly to ProxySG over SSH and Management HTTPS, then handle device setup, Local Admin management, Trace policy testing, LIVE monitoring and analysis, MIB/SNMP lookup, Sysinfo review, and Exception Page editing from one local tool.">
+           data-k="SSH 및 Management HTTPS를 이용해 ProxySG에 직접 연결하고, 장비 설정부터 Local Admin 관리, Trace 정책 테스트, LIVE 조회·분석, MIB/SNMP 조회, Sysinfo 확인, Exception Page 편집까지 하나의 로컬 도구에서 수행합니다."
+           data-e="Connect directly to ProxySG over SSH and Management HTTPS, then handle device setup, Local Admin management, Trace policy testing, LIVE monitoring and analysis, MIB/SNMP lookup, Sysinfo review, and Exception Page editing as separate workflows in one local tool.">
            SSH 및 Management HTTPS를 이용해 ProxySG에 직접 연결하고, 장비 설정부터 Local Admin 관리, Trace 정책 테스트, LIVE 조회와 분석까지 하나의 로컬 도구에서 수행합니다.
         </p>
       </div>
 
       <div class="workflow-title">
         <span data-k="사용 절차" data-e="Workflow">사용 절차</span>
-        <small data-k="장비 설정 후 Local Admin, Trace 정책, MIB/SNMP, Sysinfo·Exception Page 작업으로 분기됩니다." data-e="After Device Settings, branch into Local Admin, Trace Policy, MIB/SNMP, or Sysinfo / Exception Page work.">장비 설정 후 Local Admin, Trace 정책, MIB/SNMP 작업으로 분기됩니다.</small>
+        <small data-k="장비 설정 후 Local Admin, Trace 정책, MIB/SNMP, Sysinfo 확인, Exception Page 편집 작업으로 각각 분기됩니다." data-e="After Device Settings, branch separately into Local Admin, Trace Policy, MIB/SNMP, Sysinfo Review, or Exception Page Editing.">장비 설정 후 Local Admin, Trace 정책, MIB/SNMP 작업으로 분기됩니다.</small>
       </div>
 
       <div class="workflow-tree explorer-tree">
@@ -52,8 +52,8 @@
               <h3 data-k="장비 설정" data-e="Device Settings">장비 설정</h3>
               <span class="step-tag">SSH · HTTPS</span>
             </div>
-            <p data-k="ProxySG의 관리 IP, SSH 접속 정보, Management HTTPS 정보를 등록합니다. 자주 사용하는 장비는 프로필로 저장해 이후 Local Admin, Trace 정책, MIB/SNMP, Sysinfo·Exception Page 작업에서 다시 입력하지 않고 사용할 수 있습니다."
-               data-e="Register the ProxySG management IP, SSH access information, and Management HTTPS settings. Frequently used devices can be saved as profiles and reused later for Local Admin, Trace policy, MIB/SNMP, or Sysinfo / Exception Page work.">
+            <p data-k="ProxySG의 관리 IP, SSH 접속 정보, Management HTTPS 정보를 등록합니다. 자주 사용하는 장비는 프로필로 저장해 이후 Local Admin, Trace 정책, MIB/SNMP, Sysinfo 확인, Exception Page 편집 작업에서 다시 입력하지 않고 사용할 수 있습니다."
+               data-e="Register the ProxySG management IP, SSH access information, and Management HTTPS settings. Frequently used devices can be saved as profiles and reused later for Local Admin, Trace policy, MIB/SNMP, Sysinfo review, or Exception Page editing.">
                ProxySG의 관리 IP, SSH 접속 정보, Management HTTPS 정보를 등록합니다. 자주 사용하는 장비는 프로필로 저장해 이후 Local Admin 관리나 Trace 정책 작업에서 다시 입력하지 않고 사용할 수 있습니다.
             </p>
             <div class="step-points">
@@ -172,17 +172,36 @@
             <div class="step-no">2D</div>
             <div class="step-body">
               <div class="step-head">
-                <h3 data-k="Sysinfo 확인 / Exception Page 편집" data-e="Sysinfo Review / Exception Page Editing">Sysinfo 확인 / Exception Page 편집</h3>
-                <span class="step-tag">SYSINFO · EXCEPTION</span>
+                <h3 data-k="Sysinfo 확인" data-e="Sysinfo Review">Sysinfo 확인</h3>
+                <span class="step-tag">SYSINFO</span>
               </div>
-              <p data-k="장비 연결 후 Sysinfo 정보를 확인하거나 Exception Page를 수정해야 하는 경우 이 경로를 사용합니다. ProxySG의 Sysinfo를 확인해 장비 상태와 설정 정보를 점검하고, 필요한 경우 Exception Page 내용을 직접 편집할 수 있습니다."
-                 data-e="Use this branch when you need to review Sysinfo information or modify an Exception Page after connecting to the device. Review ProxySG Sysinfo for device status and configuration details, then edit Exception Page content when required.">
-                 장비 연결 후 Sysinfo 정보를 확인하거나 Exception Page를 수정해야 하는 경우 이 경로를 사용합니다. ProxySG의 Sysinfo를 확인해 장비 상태와 설정 정보를 점검하고, 필요한 경우 Exception Page 내용을 직접 편집할 수 있습니다.
+              <p data-k="장비 연결 후 ProxySG Sysinfo를 직접 확인하는 작업입니다. 장비의 상태와 주요 설정 정보를 한 곳에서 조회해 현재 구성이나 장애 분석에 필요한 정보를 빠르게 확인할 수 있습니다."
+                 data-e="Review ProxySG Sysinfo directly after connecting to the device. Use it to quickly inspect device status and key configuration information needed for configuration review or troubleshooting.">
+                 장비 연결 후 ProxySG Sysinfo를 직접 확인하는 작업입니다. 장비의 상태와 주요 설정 정보를 한 곳에서 조회해 현재 구성이나 장애 분석에 필요한 정보를 빠르게 확인할 수 있습니다.
               </p>
               <div class="step-points">
-                <span data-k="Sysinfo 확인" data-e="Review Sysinfo">Sysinfo 확인</span>
-                <span data-k="장비 상태 / 설정 정보 점검" data-e="Review device status / configuration">장비 상태 / 설정 정보 점검</span>
-                <span data-k="Exception Page 내용 편집" data-e="Edit Exception Page content">Exception Page 내용 편집</span>
+                <span data-k="Sysinfo 조회" data-e="View Sysinfo">Sysinfo 조회</span>
+                <span data-k="장비 상태 확인" data-e="Review device status">장비 상태 확인</span>
+                <span data-k="주요 설정 정보 점검" data-e="Review key configuration">주요 설정 정보 점검</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="workflow-step explorer-node exception-node tree-child">
+            <div class="step-no">2E</div>
+            <div class="step-body">
+              <div class="step-head">
+                <h3 data-k="Exception Page 편집" data-e="Exception Page Editing">Exception Page 편집</h3>
+                <span class="step-tag">EXCEPTION PAGE</span>
+              </div>
+              <p data-k="ProxySG의 Exception Page를 별도 작업으로 조회하고 편집하는 기능입니다. 현재 내용을 확인한 뒤 필요한 문구나 페이지 내용을 수정해 Exception Page 관리 작업을 Edge Connector에서 직접 수행할 수 있습니다."
+                 data-e="Review and edit ProxySG Exception Pages as a separate workflow. Inspect the current content, modify required text or page content, and manage Exception Pages directly from Edge Connector.">
+                 ProxySG의 Exception Page를 별도 작업으로 조회하고 편집하는 기능입니다. 현재 내용을 확인한 뒤 필요한 문구나 페이지 내용을 수정해 Exception Page 관리 작업을 Edge Connector에서 직접 수행할 수 있습니다.
+              </p>
+              <div class="step-points">
+                <span data-k="Exception Page 조회" data-e="View Exception Page">Exception Page 조회</span>
+                <span data-k="페이지 내용 편집" data-e="Edit page content">페이지 내용 편집</span>
+                <span data-k="운영 문구 수정" data-e="Update operational text">운영 문구 수정</span>
               </div>
             </div>
           </article>

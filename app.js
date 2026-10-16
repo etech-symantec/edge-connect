@@ -122,6 +122,91 @@
 
 // ------------------------------------------------------------
 
+
+// ------------------------------------------------------------
+// Progressive workflow depth expansion
+// ------------------------------------------------------------
+(() => {
+  const tree=document.querySelector('.workflow-tree.explorer-tree');
+  if(!tree) return;
+
+  function directChildContainer(card){
+    const branch=card.parentElement;
+    if(!branch?.classList.contains('tree-branch')) return null;
+    for(const child of branch.children){
+      if(child.classList?.contains('tree-children')) return child;
+    }
+    return null;
+  }
+
+  function setupExpandableCard(card){
+    const children=directChildContainer(card);
+    if(!children) return;
+
+    // Only deeper levels collapse; level-1 itself stays visible.
+    if(!children.classList.contains('level-2') && !children.classList.contains('level-3')) return;
+
+    card.classList.add('has-children');
+    card.setAttribute('tabindex','0');
+    card.setAttribute('role','button');
+    card.setAttribute('aria-expanded','false');
+
+    const head=card.querySelector('.step-head');
+    if(head && !head.querySelector('.depth-toggle')){
+      const btn=document.createElement('button');
+      btn.type='button';
+      btn.className='depth-toggle';
+      btn.setAttribute('aria-label','하위 단계 펼치기');
+      btn.setAttribute('title','하위 단계 펼치기');
+      btn.textContent='›';
+      head.appendChild(btn);
+    }
+
+    children.classList.remove('is-open');
+
+    const toggle=()=>{
+      const open=children.classList.toggle('is-open');
+      card.classList.toggle('is-expanded',open);
+      card.setAttribute('aria-expanded',open?'true':'false');
+
+      const btn=card.querySelector('.depth-toggle');
+      if(btn){
+        const english=document.documentElement.lang==='en';
+        btn.setAttribute('aria-label',open
+          ? (english?'Collapse child step':'하위 단계 접기')
+          : (english?'Expand child step':'하위 단계 펼치기'));
+        btn.setAttribute('title',btn.getAttribute('aria-label'));
+      }
+
+      // When collapsing a parent, collapse all deeper descendants too.
+      if(!open){
+        children.querySelectorAll('.tree-children.is-open').forEach(el=>el.classList.remove('is-open'));
+        children.querySelectorAll('.workflow-step.is-expanded').forEach(el=>{
+          el.classList.remove('is-expanded');
+          el.setAttribute('aria-expanded','false');
+        });
+      }
+
+      window.dispatchEvent(new CustomEvent('edge-workflow-tree-change'));
+    };
+
+    card.addEventListener('click',e=>{
+      if(e.target.closest('a,input,select,textarea')) return;
+      toggle();
+    });
+    card.addEventListener('keydown',e=>{
+      if(e.key==='Enter' || e.key===' '){
+        e.preventDefault();
+        toggle();
+      }
+    });
+  }
+
+  tree.querySelectorAll('.workflow-step').forEach(setupExpandableCard);
+})();
+
+// ------------------------------------------------------------
+
 (() => {
   const tree=document.querySelector('.workflow-tree.explorer-tree');
   const svg=document.getElementById('workflowTreeSvg');
@@ -132,6 +217,7 @@
   const trace=tree.querySelector('.trace-node');
   const mib=tree.querySelector('.mib-node');
   const sysinfo=tree.querySelector('.sysinfo-node');
+  const exceptionPage=tree.querySelector('.exception-node');
   const live=tree.querySelector('.live-branch > .tree-child');
   const analysis=tree.querySelector('.level-3 > .tree-child');
 
@@ -152,6 +238,7 @@
 
   function addRoundedLink(parent,child,klass){
     if(!parent || !child) return;
+    if(parent.offsetParent===null || child.offsetParent===null) return;
     const base=tree.getBoundingClientRect();
     const p=rect(parent,base);
     const c=rect(child,base);
@@ -186,7 +273,7 @@
   }
 
   function drawTree(){
-    if(!root || !admin || !trace || !mib || !sysinfo || !live || !analysis) return;
+    if(!root || !admin || !trace || !mib || !sysinfo || !exceptionPage || !live || !analysis) return;
 
     const w=Math.max(1,tree.clientWidth);
     const h=Math.max(1,tree.scrollHeight);
@@ -200,6 +287,7 @@
     addRoundedLink(root,trace,'tree-link-neutral');
     addRoundedLink(root,mib,'tree-link-neutral');
     addRoundedLink(root,sysinfo,'tree-link-neutral');
+    addRoundedLink(root,exceptionPage,'tree-link-neutral');
 
     // Trace workflow: subtle red connector.
     addRoundedLink(trace,live,'tree-link-trace');
@@ -214,13 +302,28 @@
 
   window.addEventListener('resize',scheduleDraw,{passive:true});
   window.addEventListener('pageshow',scheduleDraw);
+  window.addEventListener('edge-workflow-tree-change',scheduleDraw);
   document.querySelectorAll('[data-lang]').forEach(btn=>{
-    btn.addEventListener('click',()=>setTimeout(scheduleDraw,30));
+    btn.addEventListener('click',()=>{
+      setTimeout(()=>{
+        const english=document.documentElement.lang==='en';
+        tree.querySelectorAll('.workflow-step.has-children').forEach(card=>{
+          const toggle=card.querySelector('.depth-toggle');
+          if(!toggle) return;
+          const open=card.classList.contains('is-expanded');
+          toggle.setAttribute('aria-label',open
+            ? (english?'Collapse child step':'하위 단계 접기')
+            : (english?'Expand child step':'하위 단계 펼치기'));
+          toggle.setAttribute('title',toggle.getAttribute('aria-label'));
+        });
+        scheduleDraw();
+      },30);
+    });
   });
 
   if('ResizeObserver' in window){
     const ro=new ResizeObserver(scheduleDraw);
-    [tree,root,admin,trace,mib,sysinfo,live,analysis].forEach(el=>el&&ro.observe(el));
+    [tree,root,admin,trace,mib,sysinfo,exceptionPage,live,analysis].forEach(el=>el&&ro.observe(el));
   }
 
   if(document.fonts?.ready) document.fonts.ready.then(scheduleDraw);
