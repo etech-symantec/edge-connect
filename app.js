@@ -130,6 +130,7 @@
   const root=tree.querySelector('.tree-root-node');
   const admin=tree.querySelector('.local-admin-node');
   const trace=tree.querySelector('.trace-node');
+  const mib=tree.querySelector('.mib-node');
   const live=tree.querySelector('.live-branch > .tree-child');
   const analysis=tree.querySelector('.level-3 > .tree-child');
 
@@ -184,7 +185,7 @@
   }
 
   function drawTree(){
-    if(!root || !admin || !trace || !live || !analysis) return;
+    if(!root || !admin || !trace || !mib || !live || !analysis) return;
 
     const w=Math.max(1,tree.clientWidth);
     const h=Math.max(1,tree.scrollHeight);
@@ -196,6 +197,7 @@
     // Root branches.
     addRoundedLink(root,admin,'tree-link-neutral');
     addRoundedLink(root,trace,'tree-link-neutral');
+    addRoundedLink(root,mib,'tree-link-neutral');
 
     // Trace workflow: subtle red connector.
     addRoundedLink(trace,live,'tree-link-trace');
@@ -216,7 +218,7 @@
 
   if('ResizeObserver' in window){
     const ro=new ResizeObserver(scheduleDraw);
-    [tree,root,admin,trace,live,analysis].forEach(el=>el&&ro.observe(el));
+    [tree,root,admin,trace,mib,live,analysis].forEach(el=>el&&ro.observe(el));
   }
 
   if(document.fonts?.ready) document.fonts.ready.then(scheduleDraw);

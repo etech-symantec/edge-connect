@@ -1423,3 +1423,27 @@ html,body{margin:0;min-height:100%;background:var(--bg);font-family:Inter,"Segoe
   border-radius:0 !important;
   padding:0 !important;
 }
+
+
+/* ===== v21.9: MIB / SNMP branch ===== */
+.mib-node{
+  border-color:#d8caec !important;
+  background:linear-gradient(180deg,#fefcff 0%,#f8f3fd 100%) !important;
+}
+.mib-node .step-no{
+  background:linear-gradient(135deg,#7a56ad,#9570c5) !important;
+  box-shadow:0 4px 9px rgba(122,86,173,.16) !important;
+}
+.mib-node .step-head h3{
+  color:#684493 !important;
+}
+.mib-node .step-tag{
+  border-color:#ded0ed !important;
+  background:#fdf9ff !important;
+  color:#80639f !important;
+}
+.mib-node .step-points span{
+  border-color:#e4d9ef !important;
+  background:#fdfaff !important;
+  color:#735c8c !important;
+}

@@ -14,12 +14,6 @@
 
 </head>
 <body>
-<script>
-  window.pageTitle = "Edge Connector";
-  window.pageVersion = "ver.2026.10.15";
-</script> 
-<script src="https://etech-symantec.github.io/header.js"></script>
-
 <main class="page">
   <div class="main-grid">
 
@@ -37,15 +31,15 @@
         </div>
 
         <p class="lead"
-           data-k="SSH 및 Management HTTPS를 이용해 ProxySG에 직접 연결하고, 장비 설정부터 Local Admin 관리, Trace 정책 테스트, LIVE 조회와 분석까지 하나의 로컬 도구에서 수행합니다."
-           data-e="Connect directly to ProxySG over SSH and Management HTTPS, then handle device setup, Local Admin management, Trace policy testing, LIVE monitoring, and analysis from one local tool.">
+           data-k="SSH 및 Management HTTPS를 이용해 ProxySG에 직접 연결하고, 장비 설정부터 Local Admin 관리, Trace 정책 테스트, LIVE 조회·분석, MIB/SNMP 조회까지 하나의 로컬 도구에서 수행합니다."
+           data-e="Connect directly to ProxySG over SSH and Management HTTPS, then handle device setup, Local Admin management, Trace policy testing, LIVE monitoring and analysis, plus MIB/SNMP lookup from one local tool.">
            SSH 및 Management HTTPS를 이용해 ProxySG에 직접 연결하고, 장비 설정부터 Local Admin 관리, Trace 정책 테스트, LIVE 조회와 분석까지 하나의 로컬 도구에서 수행합니다.
         </p>
       </div>
 
       <div class="workflow-title">
         <span data-k="사용 절차" data-e="Workflow">사용 절차</span>
-        <small data-k="장비 설정을 기준으로 하위 작업이 좌측 트리 구조로 이어집니다." data-e="Child operations are shown as an indented tree below Device Settings.">장비 연결 후 목적에 따라 Local Admin 관리 또는 Trace 정책 작업으로 분기됩니다.</small>
+        <small data-k="장비 설정 후 Local Admin, Trace 정책, MIB/SNMP 작업으로 분기됩니다." data-e="After Device Settings, branch into Local Admin, Trace Policy, or MIB/SNMP work.">장비 설정 후 Local Admin, Trace 정책, MIB/SNMP 작업으로 분기됩니다.</small>
       </div>
 
       <div class="workflow-tree explorer-tree">
@@ -58,8 +52,8 @@
               <h3 data-k="장비 설정" data-e="Device Settings">장비 설정</h3>
               <span class="step-tag">SSH · HTTPS</span>
             </div>
-            <p data-k="ProxySG의 관리 IP, SSH 접속 정보, Management HTTPS 정보를 등록합니다. 자주 사용하는 장비는 프로필로 저장해 이후 Local Admin 관리나 Trace 정책 작업에서 다시 입력하지 않고 사용할 수 있습니다."
-               data-e="Register the ProxySG management IP, SSH access information, and Management HTTPS settings. Frequently used devices can be saved as profiles and reused later for Local Admin or Trace policy work.">
+            <p data-k="ProxySG의 관리 IP, SSH 접속 정보, Management HTTPS 정보를 등록합니다. 자주 사용하는 장비는 프로필로 저장해 이후 Local Admin, Trace 정책, MIB/SNMP 작업에서 다시 입력하지 않고 사용할 수 있습니다."
+               data-e="Register the ProxySG management IP, SSH access information, and Management HTTPS settings. Frequently used devices can be saved as profiles and reused later for Local Admin, Trace policy, or MIB/SNMP work.">
                ProxySG의 관리 IP, SSH 접속 정보, Management HTTPS 정보를 등록합니다. 자주 사용하는 장비는 프로필로 저장해 이후 Local Admin 관리나 Trace 정책 작업에서 다시 입력하지 않고 사용할 수 있습니다.
             </p>
             <div class="step-points">
@@ -154,6 +148,25 @@
               </div>
             </div>
           </div>
+
+          <article class="workflow-step explorer-node mib-node tree-child">
+            <div class="step-no">2C</div>
+            <div class="step-body">
+              <div class="step-head">
+                <h3 data-k="MIB / SNMP 조회" data-e="MIB / SNMP Lookup">MIB / SNMP 조회</h3>
+                <span class="step-tag">MIB · SNMP</span>
+              </div>
+              <p data-k="장비 연결 후 MIB 정보를 확인해야 하는 경우 이 경로로 분기합니다. ProxySG 관련 MIB와 OID 정보를 조회하고 필요한 SNMP 항목을 빠르게 찾아 모니터링 구성이나 장애 분석에 활용할 수 있습니다."
+                 data-e="Use this branch when MIB information is needed after connecting to the device. Look up ProxySG-related MIB and OID information, find required SNMP objects quickly, and use them for monitoring configuration or troubleshooting.">
+                 장비 연결 후 MIB 정보를 확인해야 하는 경우 이 경로로 분기합니다. ProxySG 관련 MIB와 OID 정보를 조회하고 필요한 SNMP 항목을 빠르게 찾아 모니터링 구성이나 장애 분석에 활용할 수 있습니다.
+              </p>
+              <div class="step-points">
+                <span data-k="MIB / OID 검색" data-e="Search MIB / OID">MIB / OID 검색</span>
+                <span data-k="SNMP 항목 확인" data-e="Review SNMP objects">SNMP 항목 확인</span>
+                <span data-k="모니터링 구성 참고" data-e="Use for monitoring setup">모니터링 구성 참고</span>
+              </div>
+            </div>
+          </article>
         </div>
 
       </div>
