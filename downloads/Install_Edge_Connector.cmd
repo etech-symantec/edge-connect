@@ -154,7 +154,13 @@ if exist "%EXTRACTDIR%" rmdir /s /q "%EXTRACTDIR%" >nul 2>&1
 echo [OK] Installation completed successfully.
 
 rem Open callback page so the web UI changes from Install to Run.
-start "" "https://etech-symantec.github.io/edge-connect/?mode=direct&launcher=installed"
+rem Tell the web page which version was just installed (taken from the EXE name inside the ZIP, e.g. Edge_Connector_v1.31.exe).
+set "EXEBASE="
+for %%F in ("%FOUND_EDITOR%") do set "EXEBASE=%%~nF"
+set "APPVER=%EXEBASE:*_v=%"
+if "%APPVER%"=="%EXEBASE%" set "APPVER="
+>> "%LOGFILE%" echo [%date% %time%] Installed version: %APPVER%
+start "" "https://etech-symantec.github.io/edge-connect/?mode=direct&connector=installed&version=%APPVER%&_=%RANDOM%"
 
 timeout /t 2 /nobreak >nul
 exit /b 0

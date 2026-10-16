@@ -34,7 +34,7 @@ if exist "%APPDIR%" (
 echo [4/4] Finishing...
 >> "%LOGFILE%" echo [%date% %time%] Uninstall completed successfully
 
-start "" "https://etech-symantec.github.io/edge-connect/?mode=direct&launcher=uninstalled"
+start "" "https://etech-symantec.github.io/edge-connect/?mode=direct&connector=uninstalled&_=%RANDOM%"
 
 timeout /t 2 /nobreak >nul
 exit /b 0
