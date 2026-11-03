@@ -1,0 +1,9 @@
+{
+  "version": "1.1.10",
+  "package": "Edge_Connector_Chrome_Native_v1.1.10.zip",
+  "sha256": "ed2103de24318b38b9efefd66e5a08fc69e56cdfc015014923e609a71d336cfc",
+  "installer": "Install_Edge_Connector_Chrome_Native_v1.1.10.cmd",
+  "edgeConnectorVersionSource": "../downloads/version.json",
+  "extensionId": "afpojmpdnpchpnomphpphmhbdehpbenl",
+  "nativeHost": "com.etech.edgeconnector"
+}
