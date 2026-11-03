@@ -117,20 +117,21 @@ echo [5/6] Closing running Edge Connector if needed...
 >> "%LOGFILE%" echo [%date% %time%] Closing running Edge Connector before update
 
 rem Stop only Edge Connector processes.
+rem IMPORTANT: "process not found" is a normal state during repair/update and must not fail the install.
 powershell.exe -NoProfile -ExecutionPolicy Bypass -Command ^
   "$target=[IO.Path]::GetFullPath($env:LOCALAPPDATA+'\Etech\EdgeConnector\Edge_Connector.exe');" ^
-  "Get-Process -ErrorAction SilentlyContinue | Where-Object { try { ($_.ProcessName -like 'Edge_Connector*') -or ($_.Path -and [IO.Path]::GetFullPath($_.Path) -eq $target) } catch { $false } } | Stop-Process -Force -ErrorAction SilentlyContinue" >nul 2>&1
+  "$ps=Get-Process -ErrorAction SilentlyContinue | Where-Object { try { ($_.ProcessName -like 'Edge_Connector*') -or ($_.Path -and [IO.Path]::GetFullPath($_.Path) -eq $target) } catch { $false } };" ^
+  "if($ps){ $ps | Stop-Process -Force -ErrorAction SilentlyContinue; $ps | ForEach-Object { try { $_.WaitForExit(5000) } catch {} } }; exit 0" >nul 2>&1
 
-rem Wait briefly for Windows to release the executable file handle.
-for /L %%N in (1,1,10) do (
+rem Wait for Windows to release the executable without modifying the EXE.
+for /L %%N in (1,1,15) do (
   if not exist "%EDITOR%" goto :editor_unlocked
-  2>nul (>>"%EDITOR%" echo.) && (
-    rem Remove the test byte immediately by restoring from a temporary copy is undesirable.
-    rem We only reach this branch if append succeeded; use copy stage directly after short delay.
-    goto :editor_unlocked
-  )
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -Command ^
+    "$p=$env:LOCALAPPDATA+'\Etech\EdgeConnector\Edge_Connector.exe'; try { $f=[IO.File]::Open($p,[IO.FileMode]::Open,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None); $f.Close(); exit 0 } catch { exit 1 }" >nul 2>&1
+  if not errorlevel 1 goto :editor_unlocked
   ping 127.0.0.1 -n 2 >nul
 )
+goto :editor_still_locked
 
 :editor_unlocked
 echo [6/6] Installing Edge Connector...
@@ -152,6 +153,15 @@ if exist "%EXTRACTDIR%" rmdir /s /q "%EXTRACTDIR%" >nul 2>&1
 
 >> "%LOGFILE%" echo [%date% %time%] Installation completed successfully
 echo [OK] Installation completed successfully.
+
+rem Start the newly installed connector. Failure to launch is logged but does not roll back the successful file update.
+start "" "%EDITOR%" >nul 2>&1
+if errorlevel 1 (
+  >> "%LOGFILE%" echo [%date% %time%] WARNING Edge Connector launch after install failed
+) else (
+  >> "%LOGFILE%" echo [%date% %time%] Edge Connector launched after install
+)
+timeout /t 2 /nobreak >nul
 
 rem Open callback page so the web UI changes from Install to Run.
 rem Tell the web page which version was just installed (taken from the EXE name inside the ZIP, e.g. Edge_Connector_v1.31.exe).
@@ -203,6 +213,11 @@ goto :fail_cleanup
 :editor_not_found
 >> "%LOGFILE%" echo [%date% %time%] ERROR Edge Connector EXE not found in ZIP
 echo [ERROR] Edge Connector EXE was not found inside the ZIP.
+goto :fail_cleanup
+
+:editor_still_locked
+>> "%LOGFILE%" echo [%date% %time%] ERROR installed Edge Connector is still locked after process stop
+echo [ERROR] Installed Edge Connector is still locked by another process.
 goto :fail_cleanup
 
 :copy_stage_fail

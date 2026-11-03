@@ -1,5 +1,5 @@
 (() => {
-  const INSTALL_URL='./downloads/Install_Edge_Connector.cmd?v=20261015-2';
+  const INSTALL_URL='./downloads/Install_Edge_Connector.cmd?v=20261103-1';
   const UNINSTALL_URL='./downloads/Uninstall_Edge_Connector.cmd?v=20261015-1';
   const VERSION_URL='./downloads/version.json';
   const PROTOCOL='edge-connector://run';
