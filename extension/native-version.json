@@ -1,7 +1,7 @@
 {
   "version": "1.1.12",
   "package": "Edge_Connector_Chrome_Native_v1.1.12.zip",
-  "sha256": "0a005077ff120f6612642cd945899a503653094083e6ac464b4ae49b55f884fc",
+  "sha256": "f1af063afb40e55ab63fe4e97564f49e25f2d2f7d21b9b9eed00d718b1663331",
   "installer": "Install_Edge_Connector_Chrome_Native_v1.1.12.cmd",
   "edgeConnectorVersionSource": "../downloads/version.json",
   "extensionId": "afpojmpdnpchpnomphpphmhbdehpbenl",
