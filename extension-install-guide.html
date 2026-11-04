@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Edge Connector Chrome 확장프로그램 설치 가이드</title>
+<link rel="stylesheet" href="https://etech-symantec.github.io/style.css">
+<style>
+:root{--ink:#17324d;--muted:#60758b;--line:#d8e3ee;--blue:#2e69b3;--soft:#f6f9fc;--green:#21825e;--warn:#9b651d}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f7fb;color:var(--ink);font-family:Arial,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+.page{max-width:900px;margin:0 auto;padding:34px 18px 60px}
+.hero,.card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 28px rgba(37,73,111,.06)}
+.hero{padding:28px}
+.hero h1{margin:6px 0 8px;font-size:30px}
+.hero p{margin:0;color:var(--muted);line-height:1.65}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#edf5ff;color:#2c639d;font-size:12px;font-weight:700}
+.card{margin-top:16px;padding:22px}
+.card h2{margin:0 0 14px;font-size:20px}
+.step{display:grid;grid-template-columns:38px minmax(0,1fr);gap:12px;padding:14px 0;border-top:1px solid #edf2f7}
+.step:first-of-type{border-top:0}
+.no{width:34px;height:34px;border-radius:10px;background:#2f6fb4;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+.step b{display:block;margin-bottom:5px}
+.step p{margin:0;color:var(--muted);line-height:1.6}
+code{background:#f2f6fa;border:1px solid #dce6ef;border-radius:7px;padding:2px 6px;font-size:12px}
+.notice{margin-top:14px;padding:14px 15px;border-radius:12px;background:#fff8ec;border:1px solid #ead6af;color:#78531f;line-height:1.6}
+.ok{background:#eefaf5;border-color:#bfe4d3;color:#246a51}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:11px 16px;border-radius:10px;font-weight:700;border:1px solid #b9cee4;background:#2f6fb4;color:#fff}
+.btn.secondary{background:#fff;color:#2f6fb4}
+.small{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main class="page">
+<section class="hero">
+  <div class="badge">ProxySG Edge Connector</div>
+  <h1>Chrome 확장프로그램 설치 가이드</h1>
+  <p>Edge Connector Chrome 확장프로그램과 Native Host를 설치하고, Repo의 최신 Edge Connector 버전을 자동 확인해 실행하는 절차입니다.</p>
+  <div class="actions">
+    <a class="btn" href="./extension/Install_Edge_Connector_Chrome_Native.cmd" download>🧩 최신 설치 CMD 다운로드</a>
+    <a class="btn secondary" href="./">← Edge Connector 페이지로 돌아가기</a>
+  </div>
+</section>
+
+<section class="card">
+  <h2>설치 순서</h2>
+
+  <div class="step">
+    <div class="no">1</div>
+    <div>
+      <b>설치 CMD 다운로드</b>
+      <p>위 버튼 또는 Edge Connector 메인 페이지의 <strong>Chrome 확장프로그램 설치</strong> 버튼을 눌러 <code>Install_Edge_Connector_Chrome_Native.cmd</code>를 다운로드합니다.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="no">2</div>
+    <div>
+      <b>다운로드한 CMD 실행</b>
+      <p>CMD를 실행하면 Repo의 <code>extension/native-version.json</code>을 확인해 현재 최신 Chrome Native 패키지를 자동으로 다운로드하고 SHA-256 검증 후 설치합니다.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="no">3</div>
+    <div>
+      <b>UAC가 나오면 허용</b>
+      <p>Edge Connector 본체 업데이트나 Native Host 설치에 관리자 권한이 필요한 경우 Windows UAC가 표시될 수 있습니다. <strong>예</strong>를 선택합니다.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="no">4</div>
+    <div>
+      <b>Chrome 확장프로그램 확인</b>
+      <p>Chrome에서 <code>chrome://extensions</code>를 열어 <strong>ProxySG Edge Connector</strong>가 설치 및 활성화되어 있는지 확인합니다. 기존 버전이 보이면 새로고침 버튼을 한 번 눌러주세요.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="no">5</div>
+    <div>
+      <b>확장 아이콘 실행</b>
+      <p>확장 아이콘을 클릭하면 Repo의 Edge Connector 최신 버전을 확인합니다. 로컬 버전이 낮으면 최신 버전으로 업데이트하고, 최신 상태이면 바로 Edge Connector를 실행합니다.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="no">6</div>
+    <div>
+      <b>127.0.0.1 연결 확인</b>
+      <p>Edge Connector 실행 후 실제 로컬 LISTEN 포트를 확인해 <code>127.0.0.1</code> 주소로 자동 연결되면 설치가 완료된 것입니다.</p>
+    </div>
+  </div>
+
+  <div class="notice ok">
+    최신 버전 번호는 확장프로그램에 하드코딩되지 않습니다. Repo의 버전 정보가 1.1.13, 1.1.14 등으로 변경되면 설치 CMD가 자동으로 최신 패키지를 선택합니다.
+  </div>
+</section>
+
+<section class="card">
+  <h2>문제가 있을 때</h2>
+  <div class="step">
+    <div class="no">A</div>
+    <div>
+      <b>확장프로그램이 예전 버전으로 보일 때</b>
+      <p><code>chrome://extensions</code>에서 ProxySG Edge Connector의 새로고침 버튼을 누른 뒤 다시 실행합니다.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="no">B</div>
+    <div>
+      <b>설치 버전과 Repo 버전이 다를 때</b>
+      <p>확장 아이콘을 다시 실행하면 Repo 최신 버전을 다시 확인합니다. 업데이트가 필요한 경우 UAC를 허용하고 완료 후 다시 실행합니다.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="no">C</div>
+    <div>
+      <b>연결 실패가 계속될 때</b>
+      <p>Edge Connector 페이지의 <strong>최신 버전 확인</strong>을 먼저 확인하고, 필요하면 Edge Connector 본체와 Chrome 확장프로그램 설치 CMD를 각각 다시 실행합니다.</p>
+    </div>
+  </div>
+  <p class="small">설치 버튼은 브라우저 보안 정책 때문에 CMD를 자동 실행하지는 못합니다. 다운로드 후 사용자가 한 번 실행해야 합니다.</p>
+</section>
+</main>
+</body>
+</html>

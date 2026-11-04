@@ -99,6 +99,7 @@
 
   $('mainBtn').onclick=()=>{if(installed())location.href=PROTOCOL;else{download(INSTALL_URL,'Install_Edge_Connector.cmd');sessionStorage.setItem(INSTALL_NOTICE,'1');render()}};
   $('extensionBtn').onclick=()=>download(EXT_INSTALL_URL,'Install_Edge_Connector_Chrome_Native.cmd');
+  $('extensionGuideBtn').onclick=()=>window.open('./extension-install-guide.html','_blank','noopener');
   $('deleteBtn').onclick=()=>{if(!confirm(lang()==='en'?'Remove Edge Connector?':'설치된 Edge Connector를 삭제하시겠습니까?'))return;download(UNINSTALL_URL,'Uninstall_Edge_Connector.cmd');sessionStorage.setItem(DELETE_NOTICE,'1');render()};
   $('versionBtn').onclick=async()=>{
     const t=tx();
