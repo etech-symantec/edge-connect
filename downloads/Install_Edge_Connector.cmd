@@ -149,6 +149,25 @@ if exist "%EDITOR%" (
 move /y "%APPDIR%\Edge_Connector.exe.new" "%EDITOR%" >nul 2>&1
 if errorlevel 1 goto :replace_fail
 
+rem ------------------------------------------------------------
+rem Write the installed-version marker read by the Chrome Native Host
+rem (edge-connector.version). Version comes from the EXE name inside the
+rem ZIP (Edge_Connector_v1.38.exe -> 1.38), falling back to version.json.
+rem ------------------------------------------------------------
+set "MARK_BASE="
+for %%F in ("%FOUND_EDITOR%") do set "MARK_BASE=%%~nF"
+set "MARK_VER=%MARK_BASE:*_v=%"
+if "%MARK_VER%"=="%MARK_BASE%" set "MARK_VER="
+if not defined MARK_VER (
+  for /f "usebackq delims=" %%V in (`powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "try{(Invoke-RestMethod -UseBasicParsing -Uri '%BASEURL%/version.json?_=%RANDOM%').version}catch{}"`) do set "MARK_VER=%%V"
+)
+if defined MARK_VER (
+  > "%APPDIR%\edge-connector.version" echo %MARK_VER%
+  >> "%LOGFILE%" echo [%date% %time%] Version marker written: %MARK_VER%
+) else (
+  >> "%LOGFILE%" echo [%date% %time%] WARNING could not determine version for marker
+)
+
 if exist "%EXTRACTDIR%" rmdir /s /q "%EXTRACTDIR%" >nul 2>&1
 
 >> "%LOGFILE%" echo [%date% %time%] Installation completed successfully
