@@ -1,5 +1,6 @@
 (() => {
   const INSTALL_URL='./downloads/Install_Edge_Connector.cmd?v=20261103-1';
+  const EXT_INSTALL_URL='./extension/Install_Edge_Connector_Chrome_Native.cmd?v=20261104-1';
   const UNINSTALL_URL='./downloads/Uninstall_Edge_Connector.cmd?v=20261015-1';
   const VERSION_URL='./downloads/version.json';
   const PROTOCOL='edge-connector://run';
@@ -97,6 +98,7 @@
   }
 
   $('mainBtn').onclick=()=>{if(installed())location.href=PROTOCOL;else{download(INSTALL_URL,'Install_Edge_Connector.cmd');sessionStorage.setItem(INSTALL_NOTICE,'1');render()}};
+  $('extensionBtn').onclick=()=>download(EXT_INSTALL_URL,'Install_Edge_Connector_Chrome_Native.cmd');
   $('deleteBtn').onclick=()=>{if(!confirm(lang()==='en'?'Remove Edge Connector?':'설치된 Edge Connector를 삭제하시겠습니까?'))return;download(UNINSTALL_URL,'Uninstall_Edge_Connector.cmd');sessionStorage.setItem(DELETE_NOTICE,'1');render()};
   $('versionBtn').onclick=async()=>{
     const t=tx();
